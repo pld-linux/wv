@@ -1,66 +1,30 @@
---- wv-0.6.5/configure.in.orig	Tue Jul 17 23:19:25 2001
-+++ wv-0.6.5/configure.in	Tue Jul 17 23:20:43 2001
-@@ -1,60 +1,11 @@
+--- wv-0.7.0/configure.in~	Mon Oct 29 17:43:07 2001
++++ wv-0.7.0/configure.in	Thu Nov  8 04:46:09 2001
+@@ -1,11 +1,8 @@
  dnl Process this file with autoconf to produce a configure script.
  AC_INIT(fib.c)
 -AC_CONFIG_HEADER(config.h)
-+AM_INIT_AUTOMAKE(wv, 0.6.7)
+ 
+-dnl I did this wrong, I think. I should have used AC_DEFINE(VERSION,"$VERSION") or similar
+-dnl but what's done is done... (fjf)
+-VERSION=0.7.0
+-AC_SUBST(VERSION)
++AM_INIT_AUTOMAKE(wv, 0.7.0)
 +AM_CONFIG_HEADER(config.h)
  
- dnl Checks for programs.
--dnl AC_PROG_CC
--dnl AC_PROG_CC shoves in -g by default, i *really* hate this so here goes...
--dnl ill shove in the autoconf def of AC_PROG_CC verbatim and remove the -g 
--dnl stuff
--dnl autoconf stuff begins here
-+AC_PROG_CC
+ # Tests for Windows
+ AC_CYGWIN
+@@ -22,13 +19,6 @@
+ dnl AC_PROG_CC_NO_G
+ AC_PROG_CC
  
--AC_DEFUN(AC_PROG_CC_NO_G,
--[AC_BEFORE([$0], [AC_PROG_CPP])dnl
--AC_CHECK_PROG(CC, gcc, gcc)
--if test -z "$CC"; then
--  AC_CHECK_PROG(CC, cc, cc, , , /usr/ucb/cc)
--  test -z "$CC" && AC_MSG_ERROR([no acceptable cc found in \$PATH])
+-dnl This is really a check for Mac OS X.1 (or darwin 1.4, whatever...)
+-suppress_md=`cat /usr/share/man/man1/ld.1 2>&1 | grep multiply_defined`
+-if test "x$suppress_md" != "x"; then
+-  CFLAGS="$CFLAGS -Wno-long-long"
+-  LDFLAGS="$LDFLAGS -Wl,-multiply_defined -Wl,suppress"
 -fi
 -
--AC_PROG_CC_WORKS
--AC_PROG_CC_GNU
--
--dnl exec suffix for DOSish OSes, autoconf-2.13 required.
--
--if test "$GCC" = yes; then
--  GCC=yes
--dnl Check whether -g works, even if CFLAGS is set, in case the package
--dnl plays around with CFLAGS (such as to build both debugging and
--dnl normal versions of a library), tasteless as that idea is.
--  ac_test_CFLAGS="${CFLAGS+set}"
--  ac_save_CFLAGS="$CFLAGS"
--  CFLAGS=
--dnl   C Begin
--dnl AC_PROG_CC_G
--dnl   C End
--  if test "$ac_test_CFLAGS" = set; then
--    CFLAGS="$ac_save_CFLAGS"
--dnl   C Begin
--dnl  elif test $ac_cv_prog_cc_g = yes; then
--dnl    CFLAGS="-g -O2"
--dnl   C End
--  else
--    CFLAGS="-O2"
--  fi
--else
--  GCC=
--  test "${CFLAGS+set}" = set 
--dnl   C Begin
--dnl || CFLAGS="-g"
--dnl   C End
--fi
--])
--
--dnl autoconf stuff ends here
--
--
--AC_PROG_CC_NO_G
  AC_PROG_MAKE_SET
  AC_PROG_INSTALL
- 
+ AC_PROG_RANLIB
