@@ -12,8 +12,8 @@ Source0:	http://download.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-magick.patch
 Patch1:		%{name}-ac25x.patch
 URL:		http://www.wvWare.com/
+BuildRequires:	ImageMagick-devel >= 1:5.4.5
 BuildRequires:	XFree86-devel
-BuildRequires:	ImageMagick-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	expat-devel

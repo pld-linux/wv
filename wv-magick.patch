@@ -48,9 +48,12 @@ diff -Nur wv-0.7.1.orig/GNUmakefile.am wv-0.7.1/GNUmakefile.am
 diff -Nur wv-0.7.1.orig/bmptopng.c wv-0.7.1/bmptopng.c
 --- wv-0.7.1.orig/bmptopng.c	Tue Apr 10 18:36:48 2001
 +++ wv-0.7.1/bmptopng.c	Thu Feb 21 22:56:31 2002
-@@ -1,4 +1,4 @@
+@@ -1,4 +1,7 @@
 -#include "magick/magick.h"
-+#include <magick/magick.h>
++#include <stdio.h>
++#include <time.h>
++#include <sys/types.h>
++#include <magick/api.h>
  #include <string.h>
  #ifdef HAVE_CONFIG_H
  #include "config.h"
