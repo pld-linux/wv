@@ -7,7 +7,7 @@ Summary(pl):	Konwerter dokumentów MS Worda do HTML
 Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
 Version:	1.0.3
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Text
 Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
@@ -55,6 +55,7 @@ Summary:	Include files needed to compile
 Summary(pl):	Pliki nag³ówkowe do biblioteki wv
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	libwmf-devel
 
 %description devel
 Contains the header files.
