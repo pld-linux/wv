@@ -1,0 +1,12 @@
+diff -ur wv-orig/wvMime wv/wvMime
+--- wv-orig/wvMime	Tue Sep 19 22:39:32 2000
++++ wv/wvMime	Tue Sep 26 16:28:00 2000
+@@ -51,5 +51,5 @@
+ fi 
+ 
+ # call our ghost-viewer
+-exec "${GV} ${TMPPS}"
+-exit ${?} 
+\ No newline at end of file
++${GV} "${TMPPS}"
++exit ${?} 
