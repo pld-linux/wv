@@ -79,7 +79,7 @@ find . -type d -name 'CVS'| xargs rm -rf
 rm -f missing acinclude.m4
 libtoolize --copy --force
 aclocal
-autoconf
+%{__autoconf}
 autoheader
 automake -a -c -i
 CPPFLAGS="-I/usr/X11R6/include/X11"
