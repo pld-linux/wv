@@ -17,7 +17,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	ImageMagick-devel
 BuildRequires:	freetype-devel
 BuildRequires:	XFree86-devel
-BuildRequires:	libwmf-devel
+BuildRequires:	libwmf-devel >= 0.1.21
 BuildRequires:	gd-devel
 BuildRequires:	iconv
 Requires:	iconv
@@ -89,6 +89,11 @@ autoheader
 	--with-png \
 	--with-xpm \
 	--with-Magick
+
+for var in SYSTEM_ZLIB HAVE_WMF; do
+		echo "#define $var" >> config.h
+done
+
 %{__make}
 
 %install
