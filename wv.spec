@@ -1,13 +1,13 @@
 #
 # Conditional build:
-%bcond_without	static	# without static version
+%bcond_without	static_libs	# without static version
 #
 Summary:	MSWord Document to HTML converter
 Summary(pl):	Konwerter dokumentów MS Worda do HTML
 Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
 Version:	1.0.0
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Text
 Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
@@ -83,7 +83,7 @@ Pakiet zawiera statyczne biblioteki wv.
 %patch2 -p1
 
 %build
-rm -f missing acinclude.m4
+rm -f acinclude.m4
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
@@ -97,7 +97,7 @@ rm -f missing acinclude.m4
 	--with-expat \
 	--with-glib=glib2 \
 	--with-libwmf \
-	--%{!?with_static:dis}%{?with_static:en}able-static
+	--%{!?with_static_libs:dis}%{?with_static_libs:en}able-static
 
 mv -f magick magick-wv
 %{__make}
@@ -130,7 +130,7 @@ rm -fr $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_includedir}/*
 
-%if %{with static}
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libwv.a
