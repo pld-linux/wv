@@ -2,7 +2,7 @@ Summary:	MSWord Document to HTML converter
 Summary(pl):	Konwerter domumentów MSWord do HTML
 Name:		wv
 Version:	0.6.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Text
 Group(de):	Applikationen/Text
@@ -12,6 +12,15 @@ Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
 Source0:	http://download.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
 URL:		http://www.wvWare.com/
+BuildRequires:	zlib-devel
+BuildRequires:	libpng-devel
+BuildRequires:	ImageMagick-devel
+BuildRequires:	freetype-devel
+BuildRequires:	XFree86-devel
+BuildRequires:	libwmf-devel
+BuildRequires:	gd-devel
+BuildRequires:	iconv
+Requires:	iconv
 Obsoletes:	mswordview
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -65,14 +74,21 @@ Pakiet zawiera statyczne biblioteki.
 %patch0 -p1
 
 # Checking for CVS specific files and removing them.
-if [ -d ./CVS ]; then
-	for i in `find . -type d -name CVS` `find . -type f -name .cvs\*` `find . -type f -name .#\*`; do
-		if [ -e "$i" ]; then rm -r -f $i; fi
-	done
-fi
+find . -type d -name 'CVS'| xargs rm -rf
 
 %build
-%configure
+for var in HAVE_TTF HAVE_WMF HAVE_XPM HAVE_ZLIB HasPNG MATCHED_TYPE \
+	MUST_USE_INTERNAL_ICONV_TABLE USE_ICONV USE_X XML_BYTE_ORDER; do
+		echo "#undef $var" >> acconfig.h
+done
+autoconf
+autoheader
+%configure \
+	--with-exporter \
+	--with-zlib \
+	--with-png \
+	--with-xpm \
+	--with-Magick
 %{__make}
 
 %install
