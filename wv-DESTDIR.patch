@@ -1,7 +1,6 @@
-diff -ur wv/Makefile.in wv.DESTDIR/Makefile.in
---- wv/Makefile.in	Mon Jan 22 00:54:18 2001
-+++ wv.DESTDIR/Makefile.in	Mon Mar 12 19:31:21 2001
-@@ -417,15 +417,15 @@
+--- wv-0.6.5.orig/Makefile.in	Sat May  5 19:52:01 2001
++++ wv-0.6.5/Makefile.in	Tue May 22 03:11:15 2001
+@@ -418,15 +418,15 @@
  	@(cd exporter && $(MAKE) realclean) || exit 1
  
  installdirs:
@@ -26,7 +25,7 @@ diff -ur wv/Makefile.in wv.DESTDIR/Makefile.in
  
  install: installdirs all
  	chmod +x $(srcdir)/wvHtml
-@@ -434,55 +434,54 @@
+@@ -435,56 +435,56 @@
  	chmod +x $(srcdir)/wvWml
  	chmod +x $(srcdir)/wvCleanLatex
  	chmod +x $(srcdir)/wvAbw	
@@ -35,6 +34,7 @@ diff -ur wv/Makefile.in wv.DESTDIR/Makefile.in
 -	$(INSTALL) $(srcdir)/wvVersion$(EXEEXT) $(bindir)/wvVersion$(EXEEXT)
 -	$(INSTALL) $(srcdir)/wvConvert$(EXEEXT) $(bindir)/wvConvert$(EXEEXT)
 -	$(INSTALL) $(srcdir)/wvWare$(EXEEXT) $(bindir)/wvWare$(EXEEXT)
+-	$(INSTALL) $(srcdir)/wvRTF$(EXEEXT) $(bindir)/wvRTF$(EXEEXT)
 -	$(INSTALL) $(srcdir)/wvCleanLatex $(bindir)/wvCleanLatex
 -	$(INSTALL) $(srcdir)/wvHtml $(bindir)/wvHtml
 -	$(INSTALL) $(srcdir)/wvAbw $(bindir)/wvAbw
@@ -66,7 +66,7 @@ diff -ur wv/Makefile.in wv.DESTDIR/Makefile.in
 -	$(INSTALL_DATA) $(src_mandir)/wvSummary.1 $(mandir)/man1/
 -	$(INSTALL_DATA) wv.h $(includedir)/wv.h
 -	$(INSTALL_DATA) exporter/wvexporter.h $(includedir)/wvexporter.h
--	$(INSTALL_DATA) $(srcdir)/libwv.a $(datadir)/libwv.a
+-	$(INSTALL_DATA) $(srcdir)/libwv.a $(libdir)/libwv.a
 -	$(INSTALL_DATA) $(src_xmldir)/wvText.xml $(datadir)/wv/wvText.xml
 -	$(INSTALL_DATA) $(src_xmldir)/wvHtml.xml $(datadir)/wv/wvHtml.xml
 -	$(INSTALL_DATA) $(src_xmldir)/wvLaTeX.xml $(datadir)/wv/wvLaTeX.xml
@@ -79,6 +79,7 @@ diff -ur wv/Makefile.in wv.DESTDIR/Makefile.in
 +	$(INSTALL) $(srcdir)/wvVersion$(EXEEXT) $(DESTDIR)$(bindir)/wvVersion$(EXEEXT)
 +	$(INSTALL) $(srcdir)/wvConvert$(EXEEXT) $(DESTDIR)$(bindir)/wvConvert$(EXEEXT)
 +	$(INSTALL) $(srcdir)/wvWare$(EXEEXT) $(DESTDIR)$(bindir)/wvWare$(EXEEXT)
++	$(INSTALL) $(srcdir)/wvRTF$(EXEEXT) $(DESTDIR)$(bindir)/wvRTF$(EXEEXT)
 +	$(INSTALL) $(srcdir)/wvCleanLatex $(DESTDIR)$(bindir)/wvCleanLatex
 +	$(INSTALL) $(srcdir)/wvHtml $(DESTDIR)$(bindir)/wvHtml
 +	$(INSTALL) $(srcdir)/wvAbw $(DESTDIR)$(bindir)/wvAbw
@@ -103,6 +104,7 @@ diff -ur wv/Makefile.in wv.DESTDIR/Makefile.in
 +	$(INSTALL_DATA) $(src_mandir)/wvWml.1 $(DESTDIR)$(mandir)/man1/
 +	$(INSTALL_DATA) $(src_mandir)/wvAbw.1 $(DESTDIR)$(mandir)/man1/
 +	$(INSTALL_DATA) $(src_mandir)/wvRTF.1 $(DESTDIR)$(mandir)/man1/
++	$(RM) -f $(DESTDIR)$(mandir)/man1/wvConvert.1
 +	echo ".so wvWare.1" > $(DESTDIR)$(mandir)/man1/wvConvert.1	
 +	$(INSTALL_DATA) $(src_mandir)/wvMime.1 $(DESTDIR)$(mandir)/man1/
 +	$(INSTALL_DATA) $(src_mandir)/wvVersion.1 $(DESTDIR)$(mandir)/man1/
@@ -127,18 +129,3 @@ diff -ur wv/Makefile.in wv.DESTDIR/Makefile.in
  	done
  
  
-Only in wv.DESTDIR: Makefile.in~
-diff -ur wv/configure.in wv.DESTDIR/configure.in
---- wv/configure.in	Wed Jan 24 04:09:14 2001
-+++ wv.DESTDIR/configure.in	Mon Mar 12 19:27:46 2001
-@@ -102,7 +102,8 @@
- if test [ "$no_x" = yes ]; then
- 	X11=""
- else
--	X11="-lX11" 
-+	LDFLAGS="$LDFLAGS -L/usr/X11R6/lib"
-+	X11="-L/usr/X11R6/lib -lX11" 
- fi
- 
- AC_SUBST(X11)
-Only in wv.DESTDIR: configure.in~

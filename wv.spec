@@ -1,8 +1,8 @@
 Summary:	MSWord Document to HTML converter
 Summary(pl):	Konwerter domumentów MSWord do HTML
 Name:		wv
-Version:	0.6.4
-Release:	3
+Version:	0.6.5
+Release:	1
 License:	GPL
 Group:		Applications/Text
 Group(de):	Applikationen/Text
@@ -11,6 +11,7 @@ Group(pl):	Aplikacje/Tekst
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
 Source0:	http://download.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
+Patch1:		%{name}-magick.patch
 URL:		http://www.wvWare.com/
 BuildRequires:	XFree86-devel
 BuildRequires:	ImageMagick-devel
@@ -18,9 +19,10 @@ BuildRequires:	autoconf
 BuildRequires:	freetype1-devel
 BuildRequires:	gd-devel
 BuildRequires:	glib-devel
-BuildRequires:	libwmf-devel >= 0.1.21b-3
+#BuildRequires:	libwmf-devel >= 0.1.21b-3
 #BuildRequires:	libxml2-devel
 BuildRequires:	iconv
+BuildRequires:	autoconf
 Requires:	iconv
 Obsoletes:	mswordview
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -42,7 +44,7 @@ Worda do HTML.
 
 %package devel
 Summary:	Include files needed to compile
-Summary(pl):	Pliki nag³ówkowe do biblioteki 
+Summary(pl):	Pliki nag³ówkowe do biblioteki wv
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
 Group(fr):	Development/Librairies
@@ -53,11 +55,11 @@ Requires:	%{name} = %{version}
 Contains the header files.
 
 %description -l pl devel
-Pakiet tem zawiera pliki nag³ówkowe.
+Pakiet tem zawiera pliki nag³ówkowe wv.
 
 %package static
-Summary:	Static libraries
-Summary(pl):	Biblioteki statyczne
+Summary:	Static wv libraries
+Summary(pl):	Biblioteki statyczne wv
 Group:		Libraries
 Group(de):	Libraries
 Group(es):	Bibliotecas
@@ -66,33 +68,27 @@ Group(pl):	Biblioteki
 Requires:	%{name}-devel = %{version}
 
 %description static
-Contains static libraries.
+Contains static wv libraries.
 
 %description -l pl static
-Pakiet zawiera statyczne biblioteki.
+Pakiet zawiera statyczne biblioteki wv.
 
 %prep
-%setup -q -n %{name}
+%setup -q
 %patch0 -p1
+%patch1 -p1
 
 # Checking for CVS specific files and removing them.
 find . -type d -name 'CVS'| xargs rm -rf
 
 %build
-for var in HAVE_TTF HAVE_WMF HAVE_XPM HAVE_ZLIB HasPNG MATCHED_TYPE \
-	MUST_USE_INTERNAL_ICONV_TABLE USE_ICONV USE_X XML_BYTE_ORDER \
-	HAVE_GLIB HAVE_LIBXML2 ; do
-		echo "#undef $var" >> acconfig.h
-done
-autoheader
+autoconf
 %configure \
 	--with-exporter \
 	--with-zlib \
 	--with-png \
-	--with-Magick \
-	--with-xpm=/usr/X11R6
-
-echo "#define SYSTEM_ZLIB" >> config.h
+	--with-Magick
+#	--with-libwmf
 
 %{__make}
 
@@ -102,14 +98,14 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-gzip -9nf helper-scripts/*
+gzip -9nf CHANGELOG CREDITS D_CREDITS D_README KNOWN-BUGS README TESTING TODO.TXT
 
 %clean
 rm -fr $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc helper-scripts
+%doc *.gz
 %attr(755,root,root) %{_bindir}/*
 %{_datadir}/wv
 %{_mandir}/man*/*

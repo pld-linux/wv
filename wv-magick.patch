@@ -1,0 +1,178 @@
+diff -Nur wv-0.6.5.orig/Makefile.in wv-0.6.5/Makefile.in
+--- wv-0.6.5.orig/Makefile.in	Tue May 22 15:12:16 2001
++++ wv-0.6.5/Makefile.in	Tue May 22 16:02:07 2001
+@@ -82,7 +82,7 @@
+ 
+ VPATH = @srcdir@
+ 
+-CFLAGS = @CPPFLAGS@ @CFLAGS@ @DEFS@ @ZLIB_CFLAGS@ @GLIB_CFLAGS@ -ansi -pedantic -I. -I./ -I$(srcdir)/ -I$(srcdir)/magick/ -I$(srcdir)/expat/xmlparse/ -DXMLCONFIG=\"$(datadir)/wv/wvConfig.xml\" -DHTMLCONFIG=\"$(datadir)/wv/wvHtml.xml\" -I$(srcdir)/libole2/ -I$(srcdir)/oledecod/ @WMF_CFLAGS@ @ICONV_CFLAGS@
++CFLAGS = @CPPFLAGS@ @CFLAGS@ @DEFS@ @ZLIB_CFLAGS@ @GLIB_CFLAGS@ -ansi -pedantic -I. -I./ -I$(srcdir)/ @MAGICK_CFLAGS@ -I$(srcdir)/expat/xmlparse/ -DXMLCONFIG=\"$(datadir)/wv/wvConfig.xml\" -DHTMLCONFIG=\"$(datadir)/wv/wvHtml.xml\" -I$(srcdir)/libole2/ -I$(srcdir)/oledecod/ @WMF_CFLAGS@ @ICONV_CFLAGS@
+ 
+ ifneq ($(HAVE_GLIB),1)
+ CFLAGS += "-I$(srcdir)/glib-wv/"
+diff -Nur wv-0.6.5.orig/bmptopng.c wv-0.6.5/bmptopng.c
+--- wv-0.6.5.orig/bmptopng.c	Tue Apr 10 18:51:24 2001
++++ wv-0.6.5/bmptopng.c	Tue May 22 16:02:59 2001
+@@ -1,4 +1,4 @@
+-#include "magick/magick.h"
++#include <magick/magick.h>
+ #include <string.h>
+ #ifdef HAVE_CONFIG_H
+ #include "config.h"
+@@ -23,7 +23,7 @@
+     GetImageInfo (&image_info);
+     sprintf (buffer, "%s.bmp", prefix);
+     strcpy (image_info.filename, buffer);
+-    image = ReadBMPImage (&image_info);
++    image = ReadImage (&image_info);
+     if (image == (Image *) NULL)
+ 	return (1);
+     sprintf (buffer, "%s.png", prefix);
+@@ -31,7 +31,7 @@
+     strcpy (image_info.filename, buffer);
+     SetImageInfo (&image_info, 1);
+     strcpy (image->filename, buffer);
+-    WritePNGImage (&image_info, image);
++    WriteImage (&image_info, image);
+ 
+     DestroyImage (image);
+     return (0);
+diff -Nur wv-0.6.5.orig/configure.in wv-0.6.5/configure.in
+--- wv-0.6.5.orig/configure.in	Tue May  1 23:34:08 2001
++++ wv-0.6.5/configure.in	Tue May 22 16:02:07 2001
+@@ -165,6 +165,67 @@
+ AC_SUBST(ZLIB_CFLAGS)
+ AC_SUBST(ZLIB_LIBS)
+ 
++dnl ========================================================
++dnl test for imagemagick
++dnl test for the existence of the MagickConfig program,
++dnl if its not there then we dont have imagemagick, if it
++dnl is there then we still have to do a big dance to get
++dnl something to link against it as it does not provide all
++dnl the information that we need to compile against it
++dnl first try it raw, maybe the author will have fixed it
++dnl by now, then try it with the prefix attached, and then
++dnl try it with the X varient of that, and then try it with
++dnl both.
++
++_cppflags="$CPPFLAGS"
++_ldflags="$LDFLAGS"
++
++AC_ARG_WITH(Magick,
++[  --with-Magick=DIR       use Magick in DIR],[
++    if test "$withval" != "no"; then
++        MAGICK_DIR=$withval
++        CPPFLAGS="$CPPFLAGS -I$withval/include"
++        LDFLAGS="$LDFLAGS -L$withval/lib"
++    fi
++])
++
++if test -n "$MAGICK_DIR"; then
++    AC_PATH_PROG(MAGICK_CONFIG, Magick-config, ,
++    [$MAGICK_DIR:$MAGICK_DIR/bin:$PATH])
++else
++    AC_PATH_PROG(MAGICK_CONFIG, Magick-config)
++fi
++
++if test -n "$MAGICK_CONFIG"; then
++    m_cppflags="`$MAGICK_CONFIG --cppflags`"
++    m_ldflags="`$MAGICK_CONFIG --ldflags`"
++
++    CPPFLAGS="$CPPFLAGS $m_cppflags"
++    LDFLAGS="$LDFLAGS $m_ldflags"
++
++    AC_CHECK_HEADER(magick/magick.h,
++        AC_CHECK_LIB(Magick, GetImageInfo,[
++            MAGICK_CFLAGS="$m_cppflags"
++            MAGICK_LIBS="$m_ldflags -lMagick"
++            MAGICK=" "
++            MAGICKOBJS=""]))
++fi
++
++if test -z "$MAGICK"; then
++	MAGICK="MAGICK"
++	MAGICK_CFLAGS="-I\$(srcdir)/magick"
++	MAGICK_LIBS=""
++	MAGICKOBJS="\$(RMAGICKOBJS)"
++fi
++
++CPPFLAGS="$_cppflags"
++LDFLAGS="$_ldflags"
++
++AC_SUBST(MAGICK_CFLAGS)
++AC_SUBST(MAGICK_LIBS)
++AC_SUBST(MAGICK)
++AC_SUBST(MAGICKOBJS)
++
+ dnl system png support
+ dnl ========================================================
+ _cppflags=${CPPFLAGS}
+@@ -417,67 +478,6 @@
+ 
+ dnl end of iconv
+ dnl ========================================================
+-
+-dnl ========================================================
+-dnl test for imagemagick
+-dnl test for the existence of the MagickConfig program,
+-dnl if its not there then we dont have imagemagick, if it
+-dnl is there then we still have to do a big dance to get
+-dnl something to link against it as it does not provide all
+-dnl the information that we need to compile against it
+-dnl first try it raw, maybe the author will have fixed it
+-dnl by now, then try it with the prefix attached, and then
+-dnl try it with the X varient of that, and then try it with
+-dnl both.
+-
+-_cppflags=$CPPFLAGS
+-_ldflags=$LDFLAGS
+-
+-AC_ARG_WITH(Magick,
+-[  --with-Magick=DIR       use Magick in DIR],[
+-    if test "$withval" != "no"; then
+-        MAGICK_DIR=$withval
+-        CPPFLAGS="$CPPFLAGS -I$withval/include"
+-        LDFLAGS="$LDFLAGS -L$withval/lib"
+-    fi
+-])
+-
+-if test -n "$MAGICK_DIR"; then
+-    AC_PATH_PROG(MAGICK_CONFIG, Magick-config, ,
+-    [$MAGICK_DIR:$MAGICK_DIR/bin:$PATH])
+-else
+-    AC_PATH_PROG(MAGICK_CONFIG, Magick-config)
+-fi
+-
+-if test -n "$MAGICK_CONFIG"; then
+-    m_cppflags=`$MAGICK_CONFIG --cppflags`
+-    m_ldflags=`$MAGICK_CONFIG --ldflags`
+-
+-    CPPFLAGS="$CPPFLAGS $m_cppflags"
+-    LDFLAGS="$LDFLAGS $m_ldflags"
+-
+-    AC_CHECK_HEADER(magick/magick.h,
+-        AC_CHECK_LIB(Magick, GetImageInfo,[
+-            MAGICK_CFLAGS=$m_cppflags
+-            MAGICK_LIBS=$m_ldflags
+-            MAGICK="MAGICK"
+-            MAGICKOBJS="\$(RMAGICKOBJS)"]))
+-fi
+-
+-if test -z "$MAGICK"; then
+-	MAGICK="MAGICK"
+-	MAGICK_CFLAGS="-I./magick"
+-	MAGICK_LIBS=""
+-	MAGICKOBJS="\$(RMAGICKOBJS)"
+-fi
+-
+-CPPFLAGS=$_cppflags
+-LDFLAGS=$_ldflags
+-
+-AC_SUBST(MAGICK_CFLAGS)
+-AC_SUBST(MAGICK_LIBS)
+-AC_SUBST(MAGICK)
+-AC_SUBST(MAGICKOBJS)
+ 
+ dnl ========================================================
+ dnl begin of possible optimization tests
