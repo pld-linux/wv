@@ -19,6 +19,7 @@ BuildRequires:	glib-devel
 BuildRequires:	libtool
 BuildRequires:	libwmf-devel >= 0.2.2
 #BuildRequires:	libxml2-devel (may be used _instead of_ expat)
+BuildRequires:	pkgconfig
 Obsoletes:	mswordview
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
