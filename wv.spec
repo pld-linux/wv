@@ -1,8 +1,8 @@
 Summary:	MSWord Document to HTML converter
 Summary(pl):	Konwerter domumentów MSWord do HTML
 Name:		wv
-Version:	0.6.2
-Release:	2
+Version:	0.6.4
+Release:	1
 License:	GPL
 Group:		Applications/Text
 Group(de):	Applikationen/Text
