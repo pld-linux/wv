@@ -18,8 +18,6 @@ BuildRequires:	expat-devel
 BuildRequires:	glib-devel
 BuildRequires:	libtool
 BuildRequires:	libwmf-devel >= 0.2.2
-BuildRequires:	libltdl-devel
-BuildRequires:	bzip2-devel
 #BuildRequires:	libxml2-devel (may be used _instead of_ expat)
 Obsoletes:	mswordview
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
