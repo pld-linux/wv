@@ -1,9 +1,13 @@
+#
+# Conditional build:
+# _without_static	- without static version
+#
 Summary:	MSWord Document to HTML converter
 Summary(pl):	Konwerter dokumentów MS Worda do HTML
 Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
 Version:	0.7.6
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Text
 Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
@@ -15,9 +19,11 @@ BuildRequires:	ImageMagick-devel >= 1:5.5.2.5
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	bzip2-static
 BuildRequires:	expat-devel
-BuildRequires:	glib-devel
+BuildRequires:	glib2-devel
 BuildRequires:	libtool
+BuildRequires:	libltdl-static
 BuildRequires:	libwmf-devel >= 0.2.2
 #BuildRequires:	libxml2-devel (may be used _instead of_ expat)
 BuildRequires:	pkgconfig
@@ -82,11 +88,11 @@ rm -f missing acinclude.m4
 %configure \
 	--with-expat \
 	--with-exporter \
-	--with-glib \
+	--with-glib=glib2 \
 	--with-libwmf \
 	--with-png \
 	--with-zlib \
-	--enable-static \
+	--%{?_without_static:dis}%{!?_without_static:en}able-static \
 	--with-libxml2
 # possible bconds:
 # --with-glib=glib2 to use glib 2.x instead of 1.x
@@ -123,6 +129,8 @@ rm -fr $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_includedir}/*.h
 
+%if %{!?_without_static:1}%{?_without_static:0}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libwv.a
+%endif
