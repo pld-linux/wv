@@ -1,16 +1,16 @@
 Summary:	MSWord Document to HTML converter
 Summary(pl):	Konwerter domumentów MSWord do HTML
 Name:		wv
-Version:	0.6.0
-Release:	2
+Version:	0.6.2
+Release:	1
 License:	GPL
-Group:		Utilities/Text
+Group:		Applications/Text
+Group(de):	Applikationen/Text
 Group(fr):	Utilitaires/Texte
-Group(pl):	Narzêdzia/Tekst
+Group(pl):	Aplikacje/Tekst
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
 Source0:	http://download.sourceforge.net/wvware/%{name}-%{version}.tar.gz
-Patch0:		wv-DESTDIR.patch
-Patch1:		wv-gv-exec.patch
+Patch0:		%{name}-DESTDIR.patch
 URL:		http://www.wvWare.com/
 Obsoletes:	mswordview
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -34,6 +34,8 @@ Worda do HTML.
 Summary:	Include files needed to compile
 Summary(pl):	Pliki nag³ówkowe do biblioteki 
 Group:		Development/Libraries
+Group(de):	Entwicklung/Libraries
+Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
 Requires:	%{name} = %{version}
 
@@ -47,6 +49,8 @@ Pakiet tem zawiera pliki nag³ówkowe
 Summary:	Static libraries
 Summary(pl):	Biblioteki statyczne
 Group:		Libraries
+Group(de):	Libraries
+Group(fr):	Librairies
 Group(pl):	Biblioteki
 Requires:	%{name}-devel = %{version}
 
@@ -56,11 +60,9 @@ Contains static libraries.
 %description -l pl static
 Pakiet zawiera statyczne biblioteki.
 
-
 %prep
 %setup -q -n %{name}
 %patch0 -p1
-%patch1 -p1
 
 # Checking for CVS specific files and removing them.
 if [ -d ./CVS ]; then
@@ -75,14 +77,9 @@ fi
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} \
-	DESTDIR=$RPM_BUILD_ROOT \
-	install
 
-for i in `find $RPM_BUILD_ROOT%{_mandir}/ -type f`;
-  do
-   gzip -9nf $i
-  done 
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 gzip -9nf helper-scripts/*
 
@@ -94,7 +91,7 @@ gzip -9nf helper-scripts/*
 %doc helper-scripts
 %attr(755,root,root) %{_bindir}/*
 %{_libdir}/wv
-%{_mandir}/man*/*.gz
+%{_mandir}/man*/*
 
 %files devel
 %defattr(644,root,root,755)
