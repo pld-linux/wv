@@ -11,6 +11,7 @@ Group(pl):	Aplikacje/Tekst
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
 Source0:	http://download.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
+Patch1:		%{name}-libwmf.patch
 URL:		http://www.wvWare.com/
 BuildRequires:	zlib-devel
 BuildRequires:	libpng-devel
@@ -72,6 +73,7 @@ Pakiet zawiera statyczne biblioteki.
 %prep
 %setup -q -n %{name}
 %patch0 -p1
+%patch1 -p1
 
 # Checking for CVS specific files and removing them.
 find . -type d -name 'CVS'| xargs rm -rf
@@ -88,11 +90,10 @@ autoheader
 	--with-zlib \
 	--with-png \
 	--with-xpm \
-	--with-Magick
+	--with-Magick \
+	--with-xpm=/usr/X11R6
 
-for var in SYSTEM_ZLIB HAVE_WMF; do
-		echo "#define $var" >> config.h
-done
+echo "#define SYSTEM_ZLIB" >> config.h
 
 %{__make}
 
