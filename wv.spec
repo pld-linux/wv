@@ -91,7 +91,7 @@ rm -f missing acinclude.m4
 	--with-libwmf \
 	--with-png \
 	--with-zlib \
-	--%{?_without_static:dis}%{!?_without_static:en}able-static \
+	--%{?_without_static:dis}%{!?_without_static:en}able-static
 
 mv -f magick magick-wv
 %{__make}
@@ -111,7 +111,7 @@ rm -fr $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-#%doc CHANGELOG CREDITS D_CREDITS D_README KNOWN-BUGS README TESTING TODO.TXT
+%doc README
 %attr(755,root,root) %{_bindir}/wv*
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
 %{_datadir}/wv
