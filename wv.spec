@@ -35,7 +35,7 @@ Summary:	Include files needed to compile
 Summary(pl):	Pliki nag³ówkowe do biblioteki 
 Group:		Development/Libraries
 Group(pl):	Programowanie/Biblioteki
-Requires:	%{name}-static = %{version}
+Requires:	%{name} = %{version}
 
 %description devel
 Contains the header files.
@@ -48,7 +48,7 @@ Summary:	Static libraries
 Summary(pl):	Biblioteki statyczne
 Group:		Libraries
 Group(pl):	Biblioteki
-#????Requires:%{name} = %{version}
+Requires:	%{name}-devel = %{version}
 
 %description static
 Contains static libraries.
