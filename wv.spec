@@ -24,7 +24,7 @@ BuildRequires:	glib2-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libtool
-BuildRequires:	libwmf-devel >= 0.2.2
+BuildRequires:	libwmf-devel >= 2:0.2.2
 BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
 Obsoletes:	mswordview
