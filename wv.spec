@@ -2,7 +2,7 @@ Summary:	MSWord Document to HTML converter
 Summary(pl):	Konwerter domumentów MSWord do HTML
 Name:		wv
 Version:	0.6.5
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Text
 Group(de):	Applikationen/Text
@@ -12,13 +12,16 @@ Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
 Source0:	http://download.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-magick.patch
+Patch2:		%{name}-ac_fix.patch
 URL:		http://www.wvWare.com/
 BuildRequires:	XFree86-devel
 BuildRequires:	ImageMagick-devel
 BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	freetype1-devel
-BuildRequires:	gd-devel
+BuildRequires:	gd-devel >= 2.0.1
 BuildRequires:	glib-devel
+BuildRequires:	libtool
 #BuildRequires:	libwmf-devel >= 0.1.21b-3
 #BuildRequires:	libxml2-devel
 BuildRequires:	autoconf
@@ -75,12 +78,16 @@ Pakiet zawiera statyczne biblioteki wv.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1 -b .orig
 
 # Checking for CVS specific files and removing them.
 find . -type d -name 'CVS'| xargs rm -rf
 
 %build
+libtoolize --copy --force
+aclocal
 autoconf
+automake -a -c
 %configure \
 	--with-exporter \
 	--with-zlib \
