@@ -3,16 +3,16 @@ Summary(es):	MSWord 6/7/8/9 binary file format -> HTML converter
 Summary(pl):	Konwerter dokumentów MSWord do HTML
 Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
-Version:	0.7.2
-Release:	2
+Version:	0.7.4
+Release:	1
 License:	GPL
 Group:		Applications/Text
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
-Source0:	http://download.sourceforge.net/wvware/%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-magick.patch
-Patch1:		%{name}-ac25x.patch
+Patch1:		%{name}-fixes.patch
 URL:		http://www.wvWare.com/
-BuildRequires:	ImageMagick-devel >= 1:5.4.5
+BuildRequires:	ImageMagick-devel >= 1:5.5.2.5
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -20,7 +20,7 @@ BuildRequires:	expat-devel
 BuildRequires:	glib-devel
 BuildRequires:	libtool
 BuildRequires:	libwmf-devel >= 0.2.2
-#BuildRequires:	libxml2-devel
+#BuildRequires:	libxml2-devel (may be used _instead of_ expat)
 Obsoletes:	mswordview
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -58,7 +58,7 @@ Pakiet tem zawiera pliki nag³ówkowe wv.
 Summary:	Static wv libraries
 Summary(pl):	Biblioteki statyczne wv
 Summary(pt_BR):	Bibliotecas estáticas para desenvolvimento com o wv
-Group:		Libraries
+Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}
 
 %description static
@@ -72,9 +72,6 @@ Pakiet zawiera statyczne biblioteki wv.
 %patch0 -p1
 %patch1 -p1
 
-# Checking for CVS specific files and removing them.
-find . -type d -name 'CVS'| xargs rm -rf
-
 %build
 rm -f missing acinclude.m4
 %{__libtoolize}
@@ -82,15 +79,18 @@ rm -f missing acinclude.m4
 %{__autoconf}
 %{__autoheader}
 %{__automake} -i
-CPPFLAGS="-I/usr/X11R6/include/X11"
-%configure CPPFLAGS="$CPPFLAGS" \
-	--with-exporter \
-	--with-zlib \
-	--with-png \
+%configure \
+	--with-Magick \
 	--with-expat \
+	--with-exporter \
+	--with-glib \
 	--with-libwmf \
-	--with-Magick=/usr/X11R6 \
+	--with-png \
+	--with-zlib \
 	--enable-static
+# possible bconds:
+# --with-glib=glib2 to use glib 2.x instead of 1.x
+# --with-gnomevfs to include gnomevfs support (gnome1 only?)
 
 mv -f magick magick-wv
 %{__make}

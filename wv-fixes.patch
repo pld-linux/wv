@@ -1,0 +1,47 @@
+--- wv-0.7.4/help/man/GNUmakefile.am.orig	Sun Jan  5 19:06:56 2003
++++ wv-0.7.4/help/man/GNUmakefile.am	Sun Jan  5 19:09:04 2003
+@@ -1,4 +1,4 @@
+-manonedir = $(prefix)/man/man1
++manonedir = $(mandir)/man1
+ 
+ MANPAGES = wvWare.1 wvHtml.1 wvLatex.1 wvCleanLatex.1 wvDVI.1 wvPS.1 wvPDF.1 wvText.1 wvWml.1 wvAbw.1 wvRTF.1 \
+ 	wvMime.1 wvVersion.1 wvSummary.1
+--- wv-0.7.4/GNUmakefile.am.orig	Sun Jan  5 19:33:06 2003
++++ wv-0.7.4/GNUmakefile.am	Sun Jan  5 19:40:48 2003
+@@ -40,7 +40,7 @@
+ 
+ SUBDIRS = xml help wingdingfont patterns $(DIRGLIB) libole2 oledecod $(DIRMAGICK) $(DIREXPAT) $(DIREXPORTER) .
+ 
+-DEFS = @DEFS@ -DVERSION=\"@VERSION@\" -DXMLCONFIG=\"$(pkgdatadir)/wvConfig.xml\" -DHTMLCONFIG=\"$(pkgdatadir)/wvHtml.xml\"
++DEFS = @DEFS@ -DVERSION=\"@VERSION@\" -DXMLCONFIG=\"$(pkgdatadir)/wvConfig.xml\" -DHTMLCONFIG=\"$(pkgdatadir)/wvHtml.xml\" -DWVDATADIR=\"$(datadir)/wv\"
+ 
+ INCLUDES = -I. -I$(top_builddir) -I$(srcdir) \
+ 	$(INCMAGICK) -I$(srcdir)/libole2 -I$(srcdir)/oledecod $(INCGLIB) $(INCEXPAT)
+--- wv-0.7.4/field.c.orig	Tue Nov  5 19:01:41 2002
++++ wv-0.7.4/field.c	Sun Jan  5 19:32:22 2003
+@@ -9,7 +9,6 @@
+ #endif
+ #include "wv.h"
+ 
+-extern char *xml_slash;
+ 
+ 
+ 
+@@ -293,7 +292,7 @@
+ 	 */	break;
+ 	    case FC_PAGEREF:
+ 		token = strtok (NULL, "\"\" ");
+-		printf ("<a href=\"#%s\" %s>", token, xml_slash);
++		printf ("<a href=\"#%s\"> </a>", token);
+ 		break;
+ 	    case FC_EDITTIME:
+ 		token = strtok (NULL, "\"\" ");
+--- wv-0.7.4/configure.ac.orig	Sun Jan  5 19:33:06 2003
++++ wv-0.7.4/configure.ac	Sun Jan  5 19:42:12 2003
+@@ -1,5 +1,5 @@
+ dnl Process this file with autoconf to produce a configure script.
+-AC_INIT([wv],[0.7.3],[wvware-devel@sourceforge.net])
++AC_INIT([wv],[0.7.4],[wvware-devel@sourceforge.net])
+ AC_CONFIG_SRCDIR([exporter/wvexporter.h])
+ 
+ dnl This next section is courtesy gtk+
