@@ -6,7 +6,7 @@ Version:	0.7.4
 Release:	1
 License:	GPL
 Group:		Applications/Text
-Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/wvware/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-magick.patch
 Patch1:		%{name}-fixes.patch
 URL:		http://www.wvWare.com/
