@@ -15,7 +15,7 @@ Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-magick.patch
 Patch1:		%{name}-fixes.patch
 Patch2:		%{name}-wrappers.patch
-URL:		http://www.wvWare.com/
+URL:		http://wvware.sourceforge.net/
 BuildRequires:	ImageMagick-devel >= 1:5.5.2.5
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
