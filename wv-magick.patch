@@ -1,15 +1,14 @@
-diff -Nur wv-0.6.5.orig/Makefile.in wv-0.6.5/Makefile.in
---- wv-0.6.5.orig/Makefile.in	Tue May 22 15:12:16 2001
-+++ wv-0.6.5/Makefile.in	Tue May 22 16:02:07 2001
-@@ -82,7 +82,7 @@
+--- wv-0.7.0/Makefile.in.orig	Thu Nov  8 06:52:57 2001
++++ wv-0.7.0/Makefile.in	Thu Nov  8 06:57:11 2001
+@@ -83,7 +83,7 @@
+ DEFS = @DEFS@ -DVERSION=\"@VERSION@\" -DXMLCONFIG=\"$(datadir)/wv/wvConfig.xml\" -DHTMLCONFIG=\"$(datadir)/wv/wvHtml.xml\"
+ CPPFLAGS = @ICONV_CFLAGS@ @WMF_CFLAGS@ @XML_CFLAGS@ @GLIB_CFLAGS@ @PNG_CFLAGS@ @ZLIB_CFLAGS@ @CPPFLAGS@
+ CFLAGS = @CFLAGS@ -ansi -pedantic
+-INCLUDES = -I. -I./ -I$(srcdir)/ -I$(srcdir)/magick/  -I$(srcdir)/libole2/ -I$(srcdir)/oledecod/
++INCLUDES = -I. -I./ -I$(srcdir)/ @MAGICK_CFLAGS@  -I$(srcdir)/libole2/ -I$(srcdir)/oledecod/
  
- VPATH = @srcdir@
- 
--CFLAGS = @CPPFLAGS@ @CFLAGS@ @DEFS@ @ZLIB_CFLAGS@ @GLIB_CFLAGS@ -ansi -pedantic -I. -I./ -I$(srcdir)/ -I$(srcdir)/magick/ -I$(srcdir)/expat/xmlparse/ -DXMLCONFIG=\"$(datadir)/wv/wvConfig.xml\" -DHTMLCONFIG=\"$(datadir)/wv/wvHtml.xml\" -I$(srcdir)/libole2/ -I$(srcdir)/oledecod/ @WMF_CFLAGS@ @ICONV_CFLAGS@
-+CFLAGS = @CPPFLAGS@ @CFLAGS@ @DEFS@ @ZLIB_CFLAGS@ @GLIB_CFLAGS@ -ansi -pedantic -I. -I./ -I$(srcdir)/ @MAGICK_CFLAGS@ -I$(srcdir)/expat/xmlparse/ -DXMLCONFIG=\"$(datadir)/wv/wvConfig.xml\" -DHTMLCONFIG=\"$(datadir)/wv/wvHtml.xml\" -I$(srcdir)/libole2/ -I$(srcdir)/oledecod/ @WMF_CFLAGS@ @ICONV_CFLAGS@
- 
- ifneq ($(HAVE_GLIB),1)
- CFLAGS += "-I$(srcdir)/glib-wv/"
+ ifeq ($(INCLUDED_EXPAT),1)
+ INCLUDES += "-I$(srcdir)/expat/xmlparse/"
 diff -Nur wv-0.6.5.orig/bmptopng.c wv-0.6.5/bmptopng.c
 --- wv-0.6.5.orig/bmptopng.c	Tue Apr 10 18:51:24 2001
 +++ wv-0.6.5/bmptopng.c	Tue May 22 16:02:59 2001
