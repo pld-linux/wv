@@ -6,12 +6,12 @@ Summary:	MSWord Document to HTML converter
 Summary(pl):	Konwerter dokumentów MS Worda do HTML
 Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
-Version:	0.7.6
-Release:	3
+Version:	1.0.0
+Release:	1
 License:	GPL
 Group:		Applications/Text
 Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
-# Source0-md5:	28c46d6676e0fce6a19e3cb730b04556
+# Source0-md5:	5e9675a8676cb1c1f6b8ab05af883178
 Patch0:		%{name}-magick.patch
 Patch1:		%{name}-fixes.patch
 URL:		http://www.wvWare.com/
@@ -22,6 +22,8 @@ BuildRequires:	automake
 BuildRequires:	bzip2-devel
 BuildRequires:	expat-devel
 BuildRequires:	glib2-devel
+BuildRequires:	libjpeg-devel
+BuildRequires:	libpng-devel
 BuildRequires:	libtool
 BuildRequires:	libltdl-devel
 BuildRequires:	libwmf-devel >= 0.2.2
@@ -87,12 +89,13 @@ rm -f missing acinclude.m4
 %{__autoheader}
 %{__automake} -i
 %configure \
-	--with-expat \
 	--with-exporter \
+	--with-zlib \
+	--with-png \
+	--with-Magick \
+	--with-expat \
 	--with-glib=glib2 \
 	--with-libwmf \
-	--with-png \
-	--with-zlib \
 	--%{?_without_static:dis}%{!?_without_static:en}able-static
 
 mv -f magick magick-wv
@@ -121,10 +124,10 @@ rm -fr $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/libwv-config
+%{_pkgconfigdir}/*
 %{_libdir}/lib*.la
 %attr(755,root,root) %{_libdir}/lib*.so
-%{_includedir}/*.h
+%{_includedir}/*
 
 %if %{!?_without_static:1}%{?_without_static:0}
 %files static
