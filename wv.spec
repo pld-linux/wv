@@ -19,11 +19,11 @@ BuildRequires:	ImageMagick-devel >= 1:5.5.2.5
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	bzip2-static
+BuildRequires:	bzip2-devel
 BuildRequires:	expat-devel
 BuildRequires:	glib2-devel
 BuildRequires:	libtool
-BuildRequires:	libltdl-static
+BuildRequires:	libltdl-devel
 BuildRequires:	libwmf-devel >= 0.2.2
 BuildRequires:	pkgconfig
 Obsoletes:	mswordview
