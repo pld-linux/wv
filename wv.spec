@@ -25,7 +25,6 @@ BuildRequires:	glib2-devel
 BuildRequires:	libtool
 BuildRequires:	libltdl-static
 BuildRequires:	libwmf-devel >= 0.2.2
-#BuildRequires:	libxml2-devel (may be used _instead of_ expat)
 BuildRequires:	pkgconfig
 Obsoletes:	mswordview
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -93,10 +92,6 @@ rm -f missing acinclude.m4
 	--with-png \
 	--with-zlib \
 	--%{?_without_static:dis}%{!?_without_static:en}able-static \
-	--with-libxml2
-# possible bconds:
-# --with-glib=glib2 to use glib 2.x instead of 1.x
-# --with-gnomevfs to include gnomevfs support (gnome1 only?)
 
 mv -f magick magick-wv
 %{__make}
