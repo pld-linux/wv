@@ -144,38 +144,4 @@ diff -urN wv.org/configure.in wv/configure.in
          [-lwmf -lxgd -ldib $XPM_LIBS -lX11 $TTF_LIBS $PNG_LIBS $ZLIB_LIBS -lm]))
  
  CPPFLAGS=${_cppflags}
-diff -urN wv.org/support.c wv/support.c
---- wv.org/support.c	Thu Jan 18 10:02:39 2001
-+++ wv/support.c	Thu Jan 18 11:01:32 2001
-@@ -89,7 +89,8 @@
- 	listEntry->next=streams;
- 	streams=listEntry;
- 	}
--			
-+
-+#ifndef HAVE_WMF
- U32 read_32ubit(wvStream *in)
- 	{
- 	U32 ret;
-@@ -137,6 +138,7 @@
- #endif
- 	return(ret);
- 	}
-+#endif
- 
- U8 read_8ubit(wvStream* in)
- 	{
-diff -urN wv.org/wv.h wv/wv.h
---- wv.org/wv.h	Thu Jan 18 10:02:39 2001
-+++ wv/wv.h	Thu Jan 18 10:22:22 2001
-@@ -4467,8 +4467,10 @@
- #define DONTIGNORENUM 1
- #define IGNOREALL 2
- 
-+#ifndef HAVE_WMF
- U32 read_32ubit(wvStream *in);
- U16 read_16ubit(wvStream *in);
-+#endif
- U8 read_8ubit(wvStream *in);
- 
- U32 sread_32ubit(const U8 *in);
+
