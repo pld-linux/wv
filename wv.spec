@@ -1,6 +1,6 @@
 #
 # Conditional build:
-# _without_static	- without static version
+%bcond_without	static	# without static version
 #
 Summary:	MSWord Document to HTML converter
 Summary(pl):	Konwerter dokumentów MS Worda do HTML
@@ -97,7 +97,7 @@ rm -f missing acinclude.m4
 	--with-expat \
 	--with-glib=glib2 \
 	--with-libwmf \
-	--%{?_without_static:dis}%{!?_without_static:en}able-static
+	--%{!?with_static:dis}%{?with_static:en}able-static
 
 mv -f magick magick-wv
 %{__make}
@@ -130,7 +130,7 @@ rm -fr $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_includedir}/*
 
-%if %{!?_without_static:1}%{?_without_static:0}
+%if %{with static}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libwv.a
