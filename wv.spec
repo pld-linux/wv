@@ -4,7 +4,7 @@ Summary(pl):	Konwerter domumentów MSWord do HTML
 Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
 Version:	0.7.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Text
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
@@ -81,11 +81,8 @@ rm -f missing acinclude.m4
 aclocal
 %{__autoconf}
 autoheader
-automake -a -c -i
+%{__automake} -i
 CPPFLAGS="-I/usr/X11R6/include/X11"
-if [ -f %{_pkgconfigdir}/libpng12.pc ] ; then
-	CPPFLAGS="$CPPFLAGS `pkg-config libpng12 --cflags`"
-fi
 %configure CPPFLAGS="$CPPFLAGS" \
 	--with-exporter \
 	--with-zlib \
@@ -105,8 +102,6 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	mandir=%{_mandir}
 
-gzip -9nf CHANGELOG CREDITS D_CREDITS D_README KNOWN-BUGS README TESTING TODO.TXT
-
 %clean
 rm -fr $RPM_BUILD_ROOT
 
@@ -115,7 +110,7 @@ rm -fr $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc CHANGELOG CREDITS D_CREDITS D_README KNOWN-BUGS README TESTING TODO.TXT
 %attr(755,root,root) %{_bindir}/wv*
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
 %{_datadir}/wv
@@ -124,6 +119,7 @@ rm -fr $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/libwv-config
+%attr(755,root,root) %{_libdir}/lib*.la
 %attr(755,root,root) %{_libdir}/lib*.so
 %{_includedir}/*.h
 
