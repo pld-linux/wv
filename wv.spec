@@ -3,8 +3,8 @@ Summary(es):	MSWord 6/7/8/9 binary file format -> HTML converter
 Summary(pl):	Konwerter domumentów MSWord do HTML
 Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
-Version:	0.7.1
-Release:	3
+Version:	0.7.2
+Release:	1
 License:	GPL
 Group:		Applications/Text
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
@@ -103,7 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	mandir=%{_mandir}/man1
+	mandir=%{_mandir}
 
 gzip -9nf CHANGELOG CREDITS D_CREDITS D_README KNOWN-BUGS README TESTING TODO.TXT
 
