@@ -7,6 +7,7 @@ Release:	1
 License:	GPL
 Group:		Applications/Text
 Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
+# Source0-md5:	5c52991ce95b2ee02fbaebff0dc36869
 Patch0:		%{name}-magick.patch
 Patch1:		%{name}-fixes.patch
 URL:		http://www.wvWare.com/
