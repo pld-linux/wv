@@ -7,21 +7,6 @@ Version:	0.7.1
 Release:	2
 License:	GPL
 Group:		Applications/Text
-Group(cs):	Aplikace/Text
-Group(da):	Programmer/Tekst
-Group(de):	Applikationen/Text
-Group(es):	Aplicaciones/Texto
-Group(fr):	Applications/Texte
-Group(is):	Forrit/Texti
-Group(it):	Applicazioni/Testo
-Group(ja):	╔╒╔в╔Й╔╠║╪╔╥╔Г╔С/╔ф╔╜╔╧╔х
-Group(no):	Applikasjoner/Tekst
-Group(pl):	Aplikacje/Tekst
-Group(pt):	AplicaГУes/Texto
-Group(ru):	Приложения/Текстовые утилиты
-Group(sl):	Programi/Besedilo
-Group(sv):	TillДmpningar/Text
-Group(uk):	Прикладн╕ Програми/Текстов╕ утил╕ти
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
 Source0:	http://download.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-magick.patch
@@ -61,22 +46,6 @@ Conversor de arquivos formato Word (6/7/8/9) para html
 Summary:	Include files needed to compile
 Summary(pl):	Pliki nagЁСwkowe do biblioteki wv
 Group:		Development/Libraries
-Group(cs):	VЩvojovИ prostЬedky/Knihovny
-Group(da):	Udvikling/Biblioteker
-Group(de):	Entwicklung/Bibliotheken
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(is):	чrСunartСl/AПgerПasЖfn
-Group(it):	Sviluppo/Librerie
-Group(ja):	Ё╚х╞/╔И╔╓╔ж╔И╔Й
-Group(no):	Utvikling/Bibliotek
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(pt):	Desenvolvimento/Bibliotecas
-Group(ru):	Разработка/Библиотеки
-Group(sl):	Razvoj/Knji╬nice
-Group(sv):	Utveckling/Bibliotek
-Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name} = %{version}
 
 %description devel
@@ -90,22 +59,6 @@ Summary:	Static wv libraries
 Summary(pl):	Biblioteki statyczne wv
 Summary(pt_BR):	Bibliotecas estАticas para desenvolvimento com o wv
 Group:		Libraries
-Group(cs):	Knihovny
-Group(da):	Biblioteker
-Group(de):	Bibliotheken
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(is):	AПgerПasЖfn
-Group(it):	Librerie
-Group(ja):	╔И╔╓╔ж╔И╔Й
-Group(no):	Biblioteker
-Group(pl):	Biblioteki
-Group(pt):	Bibliotecas
-Group(pt_BR):	Bibliotecas
-Group(ru):	Библиотеки
-Group(sl):	Knji╬nice
-Group(sv):	Bibliotek
-Group(uk):	Б╕бл╕отеки
 Requires:	%{name}-devel = %{version}
 
 %description static
