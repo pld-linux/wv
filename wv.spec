@@ -105,7 +105,7 @@ rm -rf $RPM_BUILD_ROOT
 gzip -9nf helper-scripts/*
 
 %clean
-# rm -fr $RPM_BUILD_ROOT
+rm -fr $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
