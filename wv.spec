@@ -19,15 +19,14 @@ BuildRequires:	ImageMagick-devel >= 1:5.5.2.5
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	bzip2-devel
 BuildRequires:	expat-devel
 BuildRequires:	glib2-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libtool
-BuildRequires:	libltdl-devel
 BuildRequires:	libwmf-devel >= 0.2.2
 BuildRequires:	pkgconfig
+BuildRequires:	zlib-devel
 Obsoletes:	mswordview
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
