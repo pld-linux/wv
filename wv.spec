@@ -15,19 +15,19 @@ Obsoletes:	mswordview
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-MSWordView is a program that understands the Microsoft Word 8 binary file 
-format (Office97, Office2000) and is able to convert Word documents into HTML, 
-which can then be read with a browser.
+MSWordView is a program that understands the Microsoft Word 8 binary
+file format (Office97, Office2000) and is able to convert Word
+documents into HTML, which can then be read with a browser.
 
 wv is a suite of programs to help convert Word Documents to HTML.
 
 %description -l pl
-MSWordView jest programem, który rozumie binarne dokumenty programu Microsoft
-Word 8 (Office97, Office2000) i jest w stanie skonwertowaæ je do dokumentu 
-HTML, który mo¿e byæ przeczytany w przegl±darce WWW.
+MSWordView jest programem, który rozumie binarne dokumenty programu
+Microsoft Word 8 (Office97, Office2000) i jest w stanie skonwertowaæ
+je do dokumentu HTML, który mo¿e byæ przeczytany w przegl±darce WWW.
 
-wv jest elementem programów, które pomagaj± przekonwertowaæ dokumenty Worda
-do HTML.
+wv jest elementem programów, które pomagaj± przekonwertowaæ dokumenty
+Worda do HTML.
 
 %package devel
 Summary:	Include files needed to compile
@@ -47,7 +47,7 @@ Summary:	Static libraries
 Summary(pl):	Biblioteki statyczne
 Group:		Libraries
 Group(pl):	Biblioteki
-#????Requires:	%{name} = %{version}
+#????Requires:%{name} = %{version}
 
 %description static
 Contains static libraries.
@@ -71,7 +71,7 @@ fi
 make
 
 %install
-rm -fr $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 make \
 	DESTDIR=$RPM_BUILD_ROOT \
 	install
