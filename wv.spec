@@ -56,7 +56,7 @@ Summary(pl):	Pliki nag³ówkowe do biblioteki wv
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libwmf-devel
-Requires:	ImageMagic-devel
+Requires:	ImageMagick-devel
 
 %description devel
 Contains the header files.
