@@ -1,0 +1,11 @@
+--- wv/configure.in.orig	Wed Oct 25 06:24:04 2000
++++ wv/configure.in	Thu Jan 25 00:14:42 2001
+@@ -311,7 +311,7 @@
+         AC_DEFINE(HAVE_WMF)
+         HAVE_WMF=1
+         WMF_CFLAGS="-I$WMF_DIR/include"
+-        WMF_LIBS="-L$WMF_DIR/lib -lgdwmf"], ,
++        WMF_LIBS="-L$WMF_DIR/lib -lgdwmf -lwmf -ldib -lxgd"], ,
+         [-lwmf -lxgd -ldib $XPM_LIBS -lX11 $TTF_LIBS $PNG_LIBS $ZLIB_LIBS -lm]))
+ 
+ CPPFLAGS=${_cppflags}
