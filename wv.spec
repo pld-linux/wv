@@ -2,7 +2,7 @@ Summary:	MSWord Document to HTML converter
 Summary(pl):	Konwerter domumentów MSWord do HTML
 Name:		wv
 Version:	0.6.4
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Text
 Group(de):	Applikationen/Text
@@ -12,14 +12,14 @@ Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
 Source0:	http://download.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
 URL:		http://www.wvWare.com/
-BuildRequires:	autoconf
-BuildRequires:	ImageMagick-devel
-BuildRequires:	freetype-devel
 BuildRequires:	XFree86-devel
-BuildRequires:	libwmf-devel >= 0.1.21b-3
+BuildRequires:	ImageMagick-devel
+BuildRequires:	autoconf
+BuildRequires:	freetype1-devel
 BuildRequires:	gd-devel
 BuildRequires:	glib-devel
-BuildRequires:	libxml2-devel
+BuildRequires:	libwmf-devel >= 0.1.21b-3
+#BuildRequires:	libxml2-devel
 BuildRequires:	iconv
 Requires:	iconv
 Obsoletes:	mswordview
