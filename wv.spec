@@ -29,6 +29,8 @@ BuildRequires:	pkgconfig
 Obsoletes:	mswordview
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define		specflags_ia32	"-fomit-frame-pointer"
+
 %description
 MSWordView is a program that understands the Microsoft Word 8 binary
 file format (Office97, Office2000) and is able to convert Word
