@@ -4,12 +4,13 @@ Summary(pl):	Konwerter domumentów MSWord do HTML
 Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
 Version:	0.7.1
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Text
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
 Source0:	http://download.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-magick.patch
+Patch1:		%{name}-ac25x.patch
 URL:		http://www.wvWare.com/
 BuildRequires:	XFree86-devel
 BuildRequires:	ImageMagick-devel
@@ -20,7 +21,6 @@ BuildRequires:	glib-devel
 BuildRequires:	libtool
 BuildRequires:	libwmf-devel >= 0.2.2
 #BuildRequires:	libxml2-devel
-BuildRequires:	autoconf
 Obsoletes:	mswordview
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -70,6 +70,7 @@ Pakiet zawiera statyczne biblioteki wv.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 # Checking for CVS specific files and removing them.
 find . -type d -name 'CVS'| xargs rm -rf
@@ -81,8 +82,11 @@ aclocal
 autoconf
 autoheader
 automake -a -c -i
-CPPFLAGS="-I/usr/X11R6/include/X11"; export CPPFLAGS
-%configure \
+CPPFLAGS="-I/usr/X11R6/include/X11"
+if [ -f %{_pkgconfigdir}/libpng12.pc ] ; then
+	CPPFLAGS="$CPPFLAGS `pkg-config libpng12 --cflags`"
+fi
+%configure CPPFLAGS="$CPPFLAGS" \
 	--with-exporter \
 	--with-zlib \
 	--with-png \

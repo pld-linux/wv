@@ -1,0 +1,36 @@
+--- wv-0.7.1/configure.ac.orig	Sun Apr 28 13:41:33 2002
++++ wv-0.7.1/configure.ac	Sun Apr 28 13:44:30 2002
+@@ -688,19 +688,17 @@
+ dnl end of possible optimization tests
+ 
+ dnl check for getopt
+-AC_CHECK_FUNC(getopt_long, , [LIBOBJS="$LIBOBJS getopt1.o getopt.o"])
++AC_CHECK_FUNC(getopt_long, , [AC_LIBOBJ([getopt1]); AC_LIBOBJ([getopt])])
+ dnl check for strerror
+-AC_CHECK_FUNC(strerror, , [LIBOBJS="$LIBOBJS strerror.o"])
++AC_CHECK_FUNC(strerror, , [AC_LIBOBJ([strerror])])
+ dnl check for strcasecmp
+-AC_CHECK_FUNC(strcasecmp, , [LIBOBJS="$LIBOBJS strcasecmp.o"])
++AC_CHECK_FUNC(strcasecmp, , [AC_LIBOBJ([strcasecmp])])
+ AC_EGREP_HEADER(strcasecmp,string.h,,AC_DEFINE(DEFINE_STRCASECMP,1,[Define this if strcasecmp must be defined]))
+ dnl check for memcpy, if not there we'll use bcopy
+ AC_CHECK_FUNCS(memcpy)
+ dnl check for mmap
+ AC_FUNC_MMAP
+ 
+-AC_SUBST(LIBOBJS)
+-
+ AH_BOTTOM([
+ #ifdef HAVE_UNISTD_H
+ #include <unistd.h>
+--- wv-0.7.1/help/man/GNUmakefile.am.orig	Tue Jan 15 10:58:17 2002
++++ wv-0.7.1/help/man/GNUmakefile.am	Sun Apr 28 13:46:37 2002
+@@ -3,7 +3,7 @@
+ MANPAGES = wvWare.1 wvHtml.1 wvLatex.1 wvCleanLatex.1 wvDVI.1 wvPS.1 wvPDF.1 wvText.1 wvWml.1 wvAbw.1 wvRTF.1 \
+ 	wvMime.1 wvVersion.1 wvSummary.1
+ 
+-man_DATA = $(MANPAGES)
++man_MANS = $(MANPAGES)
+ 
+ EXTRA_DIST = $(MANPAGES)
+ 
