@@ -55,7 +55,7 @@ Conversor de arquivos formato Word (6/7/8/9) para html.
 Summary:	Include files needed to compile
 Summary(pl):	Pliki nag³ówkowe do biblioteki wv
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 Contains the header files.
@@ -68,7 +68,7 @@ Summary:	Static wv libraries
 Summary(pl):	Biblioteki statyczne wv
 Summary(pt_BR):	Bibliotecas estáticas para desenvolvimento com o wv
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Contains static wv libraries.
