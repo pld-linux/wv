@@ -1,8 +1,8 @@
-diff -ur wv-orig/Makefile.in wv/Makefile.in
---- wv-orig/Makefile.in	Wed Sep 20 20:42:43 2000
-+++ wv/Makefile.in	Tue Sep 26 16:49:44 2000
-@@ -321,60 +321,60 @@
- 	@(cd glib-wv && $(MAKE) realclean) || exit 1
+diff -Nru wv/Makefile.in wv.new/Makefile.in
+--- wv/Makefile.in	Mon Nov  6 08:11:00 2000
++++ wv.new/Makefile.in	Mon Nov  6 08:15:44 2000
+@@ -401,15 +401,12 @@
+ 	@(cd exporter && $(MAKE) realclean) || exit 1
  
  installdirs:
 -	$(MKINSTALLDIRS) $(bindir) \
@@ -13,22 +13,20 @@ diff -ur wv-orig/Makefile.in wv/Makefile.in
 -	$(libdir)/wv/wingdingfont \
 -	$(libdir)/wv/patterns \
 -	$(libdir)/wv/ttf \
--	$(includedir)
+-	$(includedir)	
 +	$(MKINSTALLDIRS) $(DESTDIR)$(bindir) \
-+	$(DESTDIR)$(mandir) \
 +	$(DESTDIR)$(mandir)/man1 \
-+	$(DESTDIR)$(libdir) \
-+	$(DESTDIR)$(libdir)/wv\
 +	$(DESTDIR)$(libdir)/wv/wingdingfont \
 +	$(DESTDIR)$(libdir)/wv/patterns \
 +	$(DESTDIR)$(libdir)/wv/ttf \
-+	$(DESTDIR)$(includedir)
- 	
++	$(DESTDIR)$(includedir)	
  
  install: installdirs all
  	chmod +x $(srcdir)/wvHtml
- 	chmod +x $(srcdir)/wvLatex
- 	chmod +x $(srcdir)/wvCleanLatex	
+@@ -418,54 +415,53 @@
+ 	chmod +x $(srcdir)/wvWml
+ 	chmod +x $(srcdir)/wvCleanLatex
+ 	chmod +x $(srcdir)/wvAbw	
 -	$(INSTALL) $(srcdir)/wvSummary$(EXEEXT) $(bindir)/wvSummary$(EXEEXT)
 -	$(INSTALL) $(srcdir)/wvSimpleCLX$(EXEEXT) $(bindir)/wvSimpleCLX$(EXEEXT)
 -	$(INSTALL) $(srcdir)/wvVersion$(EXEEXT) $(bindir)/wvVersion$(EXEEXT)
@@ -36,14 +34,17 @@ diff -ur wv-orig/Makefile.in wv/Makefile.in
 -	$(INSTALL) $(srcdir)/wvWare$(EXEEXT) $(bindir)/wvWare$(EXEEXT)
 -	$(INSTALL) $(srcdir)/wvCleanLatex $(bindir)/wvCleanLatex
 -	$(INSTALL) $(srcdir)/wvHtml $(bindir)/wvHtml
+-	$(INSTALL) $(srcdir)/wvAbw $(bindir)/wvAbw
 -	$(INSTALL) $(srcdir)/wvMime $(bindir)/wvMime
 -	$(INSTALL) $(srcdir)/wvPS $(bindir)/wvPS
 -	$(INSTALL) $(srcdir)/wvDVI $(bindir)/wvDVI
 -	$(INSTALL) $(srcdir)/wvLatex $(bindir)/wvLatex
 -	$(INSTALL) $(srcdir)/wvPDF $(bindir)/wvPDF
 -	$(INSTALL) $(srcdir)/wvText $(bindir)/wvText
+-	$(INSTALL) $(srcdir)/wvWml $(bindir)/wvWml
 -	$(INSTALL) $(srcdir)/wv-libconfig $(bindir)/wv-libconfig
 -	$(INSTALL) $(srcdir)/wv-incconfig $(bindir)/wv-incconfig
+-	$(INSTALL) $(srcdir)/make_epses.sh $(bindir)/make_epses.sh
 -	$(INSTALL_DATA) $(srcdir)/wvWare.1 $(mandir)/man1/
 -	$(INSTALL_DATA) $(srcdir)/wvHtml.1 $(mandir)/man1/
 -	$(INSTALL_DATA) $(srcdir)/wvLatex.1 $(mandir)/man1/
@@ -52,15 +53,21 @@ diff -ur wv-orig/Makefile.in wv/Makefile.in
 -	$(INSTALL_DATA) $(srcdir)/wvPS.1 $(mandir)/man1/
 -	$(INSTALL_DATA) $(srcdir)/wvPDF.1 $(mandir)/man1/
 -	$(INSTALL_DATA) $(srcdir)/wvText.1 $(mandir)/man1/
--	$(RM) $(mandir)/man1/wvConvert.1
+-	$(INSTALL_DATA) $(srcdir)/wvWml.1 $(mandir)/man1/
+-	$(INSTALL_DATA) $(srcdir)/wvAbw.1 $(mandir)/man1/
+-	$(RM) -f $(mandir)/man1/wvConvert.1
 -	$(LN) -s $(mandir)/man1/wvWare.1 $(mandir)/man1/wvConvert.1	
 -	$(INSTALL_DATA) $(srcdir)/wvMime.1 $(mandir)/man1/
 -	$(INSTALL_DATA) $(srcdir)/wvVersion.1 $(mandir)/man1/
 -	$(INSTALL_DATA) $(srcdir)/wvSummary.1 $(mandir)/man1/
 -	$(INSTALL_DATA) wv.h $(includedir)/wv.h
+-	$(INSTALL_DATA) exporter/wvexporter.h $(includedir)/wvexporter.h
 -	$(INSTALL_DATA) $(srcdir)/libwv.a $(libdir)/libwv.a
+-	$(INSTALL_DATA) $(srcdir)/wvText.xml $(libdir)/wv/wvText.xml
 -	$(INSTALL_DATA) $(srcdir)/wvHtml.xml $(libdir)/wv/wvHtml.xml
 -	$(INSTALL_DATA) $(srcdir)/wvLaTeX.xml $(libdir)/wv/wvLaTeX.xml
+-	$(INSTALL_DATA) $(srcdir)/wvAbw.xml $(libdir)/wv/wvAbw.xml
+-	$(INSTALL_DATA) $(srcdir)/wvWml.xml $(libdir)/wv/wvWml.xml
 -	$(INSTALL_DATA) $(srcdir)/wvCleanLaTeX.xml $(libdir)/wv/wvCleanLaTeX.xml
 -	$(INSTALL_DATA) $(srcdir)/wvConfig.xml $(libdir)/wv/wvConfig.xml
 +	$(INSTALL) $(srcdir)/wvSummary$(EXEEXT) $(DESTDIR)$(bindir)/wvSummary$(EXEEXT)
@@ -70,14 +77,17 @@ diff -ur wv-orig/Makefile.in wv/Makefile.in
 +	$(INSTALL) $(srcdir)/wvWare$(EXEEXT) $(DESTDIR)$(bindir)/wvWare$(EXEEXT)
 +	$(INSTALL) $(srcdir)/wvCleanLatex $(DESTDIR)$(bindir)/wvCleanLatex
 +	$(INSTALL) $(srcdir)/wvHtml $(DESTDIR)$(bindir)/wvHtml
++	$(INSTALL) $(srcdir)/wvAbw $(DESTDIR)$(bindir)/wvAbw
 +	$(INSTALL) $(srcdir)/wvMime $(DESTDIR)$(bindir)/wvMime
 +	$(INSTALL) $(srcdir)/wvPS $(DESTDIR)$(bindir)/wvPS
 +	$(INSTALL) $(srcdir)/wvDVI $(DESTDIR)$(bindir)/wvDVI
 +	$(INSTALL) $(srcdir)/wvLatex $(DESTDIR)$(bindir)/wvLatex
 +	$(INSTALL) $(srcdir)/wvPDF $(DESTDIR)$(bindir)/wvPDF
 +	$(INSTALL) $(srcdir)/wvText $(DESTDIR)$(bindir)/wvText
++	$(INSTALL) $(srcdir)/wvWml $(DESTDIR)$(bindir)/wvWml
 +	$(INSTALL) $(srcdir)/wv-libconfig $(DESTDIR)$(bindir)/wv-libconfig
 +	$(INSTALL) $(srcdir)/wv-incconfig $(DESTDIR)$(bindir)/wv-incconfig
++	$(INSTALL) $(srcdir)/make_epses.sh $(DESTDIR)$(bindir)/make_epses.sh
 +	$(INSTALL_DATA) $(srcdir)/wvWare.1 $(DESTDIR)$(mandir)/man1/
 +	$(INSTALL_DATA) $(srcdir)/wvHtml.1 $(DESTDIR)$(mandir)/man1/
 +	$(INSTALL_DATA) $(srcdir)/wvLatex.1 $(DESTDIR)$(mandir)/man1/
@@ -86,15 +96,20 @@ diff -ur wv-orig/Makefile.in wv/Makefile.in
 +	$(INSTALL_DATA) $(srcdir)/wvPS.1 $(DESTDIR)$(mandir)/man1/
 +	$(INSTALL_DATA) $(srcdir)/wvPDF.1 $(DESTDIR)$(mandir)/man1/
 +	$(INSTALL_DATA) $(srcdir)/wvText.1 $(DESTDIR)$(mandir)/man1/
-+	$(RM) $(DESTDIR)$(mandir)/man1/wvConvert.1
-+	$(LN) -s $(mandir)/man1/wvWare.1 $(DESTDIR)$(mandir)/man1/wvConvert.1	
++	$(INSTALL_DATA) $(srcdir)/wvWml.1 $(DESTDIR)$(mandir)/man1/
++	$(INSTALL_DATA) $(srcdir)/wvAbw.1 $(DESTDIR)$(mandir)/man1/
++	echo ".so wvWare.1" > $(DESTDIR)$(mandir)/man1/wvConvert.1	
 +	$(INSTALL_DATA) $(srcdir)/wvMime.1 $(DESTDIR)$(mandir)/man1/
 +	$(INSTALL_DATA) $(srcdir)/wvVersion.1 $(DESTDIR)$(mandir)/man1/
 +	$(INSTALL_DATA) $(srcdir)/wvSummary.1 $(DESTDIR)$(mandir)/man1/
 +	$(INSTALL_DATA) wv.h $(DESTDIR)$(includedir)/wv.h
++	$(INSTALL_DATA) exporter/wvexporter.h $(DESTDIR)$(includedir)/wvexporter.h
 +	$(INSTALL_DATA) $(srcdir)/libwv.a $(DESTDIR)$(libdir)/libwv.a
++	$(INSTALL_DATA) $(srcdir)/wvText.xml $(DESTDIR)$(libdir)/wv/wvText.xml
 +	$(INSTALL_DATA) $(srcdir)/wvHtml.xml $(DESTDIR)$(libdir)/wv/wvHtml.xml
 +	$(INSTALL_DATA) $(srcdir)/wvLaTeX.xml $(DESTDIR)$(libdir)/wv/wvLaTeX.xml
++	$(INSTALL_DATA) $(srcdir)/wvAbw.xml $(DESTDIR)$(libdir)/wv/wvAbw.xml
++	$(INSTALL_DATA) $(srcdir)/wvWml.xml $(DESTDIR)$(libdir)/wv/wvWml.xml
 +	$(INSTALL_DATA) $(srcdir)/wvCleanLaTeX.xml $(DESTDIR)$(libdir)/wv/wvCleanLaTeX.xml
 +	$(INSTALL_DATA) $(srcdir)/wvConfig.xml $(DESTDIR)$(libdir)/wv/wvConfig.xml
  	for filename in wingdingfont/*.gif; do \
