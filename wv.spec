@@ -31,7 +31,7 @@ BuildRequires:	zlib-devel
 Obsoletes:	mswordview
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		specflags_ia32	"-fomit-frame-pointer"
+%define		specflags_ia32	 -fomit-frame-pointer 
 
 %description
 MSWordView is a program that understands the Microsoft Word 8 binary
