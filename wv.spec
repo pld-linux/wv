@@ -13,13 +13,12 @@ Source0:	http://download.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
 URL:		http://www.wvWare.com/
 BuildRequires:	autoconf
-BuildRequires:	zlib-devel
-BuildRequires:	libpng-devel
 BuildRequires:	ImageMagick-devel
 BuildRequires:	freetype-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	libwmf-devel >= 0.1.21b-3
 BuildRequires:	gd-devel
+BuildRequires:	glib-devel
 BuildRequires:	iconv
 Requires:	iconv
 Obsoletes:	mswordview
@@ -53,7 +52,7 @@ Requires:	%{name} = %{version}
 Contains the header files.
 
 %description -l pl devel
-Pakiet tem zawiera pliki nag³ówkowe
+Pakiet tem zawiera pliki nag³ówkowe.
 
 %package static
 Summary:	Static libraries
@@ -80,7 +79,8 @@ find . -type d -name 'CVS'| xargs rm -rf
 
 %build
 for var in HAVE_TTF HAVE_WMF HAVE_XPM HAVE_ZLIB HasPNG MATCHED_TYPE \
-	MUST_USE_INTERNAL_ICONV_TABLE USE_ICONV USE_X XML_BYTE_ORDER; do
+	MUST_USE_INTERNAL_ICONV_TABLE USE_ICONV USE_X XML_BYTE_ORDER \
+	HAVE_GLIB HAVE_LIBXML2 ; do
 		echo "#undef $var" >> acconfig.h
 done
 autoheader
@@ -88,7 +88,6 @@ autoheader
 	--with-exporter \
 	--with-zlib \
 	--with-png \
-	--with-xpm \
 	--with-Magick \
 	--with-xpm=/usr/X11R6
 
@@ -111,7 +110,7 @@ rm -fr $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc helper-scripts
 %attr(755,root,root) %{_bindir}/*
-%{_libdir}/wv
+%{_datadir}/wv
 %{_mandir}/man*/*
 
 %files devel
