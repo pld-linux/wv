@@ -4,7 +4,7 @@ Summary(pl):	Konwerter domumentów MSWord do HTML
 Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
 Version:	0.7.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Text
 Group(cs):	Aplikace/Text
@@ -33,7 +33,7 @@ BuildRequires:	automake
 BuildRequires:	expat-devel
 BuildRequires:	glib-devel
 BuildRequires:	libtool
-BuildRequires:	libwmf-devel >= 0.2.1
+BuildRequires:	libwmf-devel >= 0.2.2
 #BuildRequires:	libxml2-devel
 BuildRequires:	autoconf
 Obsoletes:	mswordview
