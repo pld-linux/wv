@@ -8,7 +8,7 @@ Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
 Source:		%{name}-%{version}.tar.bz2
 URL:		http://www.csn.ul.ie/~caolan/docs/MSWordView.html
 Obsoletes:	mswordview
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 MSWordView is a program that understands the Microsoft Word 8
