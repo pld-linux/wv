@@ -1,6 +1,6 @@
 Summary:	MSWord Document to HTML converter
 Summary(es):	MSWord 6/7/8/9 binary file format -> HTML converter
-Summary(pl):	Konwerter domumentów MSWord do HTML
+Summary(pl):	Konwerter dokumentów MSWord do HTML
 Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
 Version:	0.7.2
