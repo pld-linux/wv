@@ -1,0 +1,72 @@
+diff -Nur wv/Makefile.in wv.new/Makefile.in
+--- wv/Makefile.in	Thu Nov  4 13:43:10 1999
++++ wv.new/Makefile.in	Fri Jun  2 11:20:58 2000
+@@ -238,41 +238,41 @@
+ 	@(cd expat && $(MAKE) realclean) || exit 1
+ 
+ installdirs:
+-	$(MKINSTALLDIRS) $(bindir) \
+-	$(mandir) \
+-	$(mandir)/man1 \
+-	$(libdir) \
+-	$(libdir)/wv\
+-	$(libdir)/wv/symbolfont \
+-	$(libdir)/wv/wingdingfont \
+-	$(libdir)/wv/patterns \
+-	$(libdir)/wv/ttf \
+-	$(includedir)
++	$(MKINSTALLDIRS) $(DESTDIR)$(bindir) \
++	$(DESTDIR)$(mandir) \
++	$(DESTDIR)$(mandir)/man1 \
++	$(DESTDIR)$(libdir) \
++	$(DESTDIR)$(libdir)/wv\
++	$(DESTDIR)$(libdir)/wv/symbolfont \
++	$(DESTDIR)$(libdir)/wv/wingdingfont \
++	$(DESTDIR)$(libdir)/wv/patterns \
++	$(DESTDIR)$(libdir)/wv/ttf \
++	$(DESTDIR)$(includedir)
+ 	
+ 
+ install: installdirs all
+-	$(INSTALL) $(srcdir)/wvSummary$(EXEEXT) $(bindir)/wvSummary$(EXEEXT)
+-	$(INSTALL) $(srcdir)/wvSimpleCLX$(EXEEXT) $(bindir)/wvSimpleCLX$(EXEEXT)
+-	$(INSTALL) $(srcdir)/wvVersion$(EXEEXT) $(bindir)/wvVersion$(EXEEXT)
+-	$(INSTALL) $(srcdir)/wvConvert$(EXEEXT) $(bindir)/wvConvert$(EXEEXT)
+-	$(RM) $(bindir)/wvText$(EXEEXT)
+-	$(LN) -s $(bindir)/wvConvert$(EXEEXT) $(bindir)/wvText$(EXEEXT)
+-	$(INSTALL) $(srcdir)/wvHtml$(EXEEXT) $(bindir)/wvHtml$(EXEEXT)
+-	$(INSTALL) $(srcdir)/wv-libconfig $(bindir)/wv-libconfig
+-	$(INSTALL) $(srcdir)/wv-incconfig $(bindir)/wv-incconfig
+-	$(INSTALL_DATA) $(srcdir)/wvHtml.1 $(mandir)/man1/
+-	$(INSTALL_DATA) wv.h $(includedir)/wv.h
+-	$(INSTALL_DATA) $(srcdir)/libwv.a $(libdir)/libwv.a
+-	$(INSTALL_DATA) $(srcdir)/wvHtml.xml $(libdir)/wv/wvHtml.xml
+-	$(INSTALL_DATA) $(srcdir)/wvConfig.xml $(libdir)/wv/wvConfig.xml
++	$(INSTALL) $(srcdir)/wvSummary$(EXEEXT) $(DESTDIR)$(bindir)/wvSummary$(EXEEXT)
++	$(INSTALL) $(srcdir)/wvSimpleCLX$(EXEEXT) $(DESTDIR)$(bindir)/wvSimpleCLX$(EXEEXT)
++	$(INSTALL) $(srcdir)/wvVersion$(EXEEXT) $(DESTDIR)$(bindir)/wvVersion$(EXEEXT)
++	$(INSTALL) $(srcdir)/wvConvert$(EXEEXT) $(DESTDIR)$(bindir)/wvConvert$(EXEEXT)
++	$(RM) $(DESTDIR)$(bindir)/wvText$(EXEEXT)
++	$(LN) -s $(DESTDIR)$(bindir)/wvConvert$(EXEEXT) $(DESTDIR)$(bindir)/wvText$(EXEEXT)
++	$(INSTALL) $(srcdir)/wvHtml$(EXEEXT) $(DESTDIR)$(bindir)/wvHtml$(EXEEXT)
++	$(INSTALL) $(srcdir)/wv-libconfig $(DESTDIR)$(bindir)/wv-libconfig
++	$(INSTALL) $(srcdir)/wv-incconfig $(DESTDIR)$(bindir)/wv-incconfig
++	$(INSTALL_DATA) $(srcdir)/wvHtml.1 $(DESTDIR)$(mandir)/man1/
++	$(INSTALL_DATA) wv.h $(DESTDIR)$(includedir)/wv.h
++	$(INSTALL_DATA) $(srcdir)/libwv.a $(DESTDIR)$(libdir)/libwv.a
++	$(INSTALL_DATA) $(srcdir)/wvHtml.xml $(DESTDIR)$(libdir)/wv/wvHtml.xml
++	$(INSTALL_DATA) $(srcdir)/wvConfig.xml $(DESTDIR)$(libdir)/wv/wvConfig.xml
+ 	for filename in symbolfont/*.gif; do \
+-		$(INSTALL_DATA) $$filename $(libdir)/wv/symbolfont; \
++		$(INSTALL_DATA) $$filename $(DESTDIR)$(libdir)/wv/symbolfont; \
+ 	done
+ 	for filename in wingdingfont/*.gif; do \
+-		$(INSTALL_DATA) $$filename $(libdir)/wv/wingdingfont; \
++		$(INSTALL_DATA) $$filename $(DESTDIR)$(libdir)/wv/wingdingfont; \
+ 	done
+ 	for filename in patterns/*.gif patterns/*.jpg; do \
+-		$(INSTALL_DATA) $$filename $(libdir)/wv/patterns; \
++		$(INSTALL_DATA) $$filename $(DESTDIR)$(libdir)/wv/patterns; \
+ 	done
+ 
+ 
