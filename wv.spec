@@ -11,14 +11,14 @@ Group(pl):	Aplikacje/Tekst
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
 Source0:	http://download.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
-Patch1:		%{name}-libwmf.patch
 URL:		http://www.wvWare.com/
+BuildRequires:	autoconf
 BuildRequires:	zlib-devel
 BuildRequires:	libpng-devel
 BuildRequires:	ImageMagick-devel
 BuildRequires:	freetype-devel
 BuildRequires:	XFree86-devel
-BuildRequires:	libwmf-devel >= 0.1.21
+BuildRequires:	libwmf-devel >= 0.1.21b-3
 BuildRequires:	gd-devel
 BuildRequires:	iconv
 Requires:	iconv
@@ -60,6 +60,7 @@ Summary:	Static libraries
 Summary(pl):	Biblioteki statyczne
 Group:		Libraries
 Group(de):	Libraries
+Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
 Requires:	%{name}-devel = %{version}
@@ -73,7 +74,6 @@ Pakiet zawiera statyczne biblioteki.
 %prep
 %setup -q -n %{name}
 %patch0 -p1
-%patch1 -p1
 
 # Checking for CVS specific files and removing them.
 find . -type d -name 'CVS'| xargs rm -rf
@@ -83,7 +83,6 @@ for var in HAVE_TTF HAVE_WMF HAVE_XPM HAVE_ZLIB HasPNG MATCHED_TYPE \
 	MUST_USE_INTERNAL_ICONV_TABLE USE_ICONV USE_X XML_BYTE_ORDER; do
 		echo "#undef $var" >> acconfig.h
 done
-autoconf
 autoheader
 %configure \
 	--with-exporter \
