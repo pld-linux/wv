@@ -1,53 +1,140 @@
---- wv-0.7.0/Makefile.in.orig	Thu Nov  8 06:52:57 2001
-+++ wv-0.7.0/Makefile.in	Thu Nov  8 06:57:11 2001
-@@ -83,7 +83,7 @@
- DEFS = @DEFS@ -DVERSION=\"@VERSION@\" -DXMLCONFIG=\"$(datadir)/wv/wvConfig.xml\" -DHTMLCONFIG=\"$(datadir)/wv/wvHtml.xml\"
- CPPFLAGS = @ICONV_CFLAGS@ @WMF_CFLAGS@ @XML_CFLAGS@ @GLIB_CFLAGS@ @PNG_CFLAGS@ @ZLIB_CFLAGS@ @CPPFLAGS@
- CFLAGS = @CFLAGS@ -ansi -pedantic
--INCLUDES = -I. -I./ -I$(srcdir)/ -I$(srcdir)/magick/  -I$(srcdir)/libole2/ -I$(srcdir)/oledecod/
-+INCLUDES = -I. -I./ -I$(srcdir)/ @MAGICK_CFLAGS@  -I$(srcdir)/libole2/ -I$(srcdir)/oledecod/
+diff -Nur wv-0.7.1.orig/GNUmakefile.am wv-0.7.1/GNUmakefile.am
+--- wv-0.7.1.orig/GNUmakefile.am	Tue Jan 15 10:58:17 2002
++++ wv-0.7.1/GNUmakefile.am	Thu Feb 21 22:55:58 2002
+@@ -26,20 +26,30 @@
+ LIBEXPORTER = 
+ endif
  
- ifeq ($(INCLUDED_EXPAT),1)
- INCLUDES += "-I$(srcdir)/expat/xmlparse/"
-diff -Nur wv-0.6.5.orig/bmptopng.c wv-0.6.5/bmptopng.c
---- wv-0.6.5.orig/bmptopng.c	Tue Apr 10 18:51:24 2001
-+++ wv-0.6.5/bmptopng.c	Tue May 22 16:02:59 2001
++if BUILD_MAGICK
++DIRMAGICK = magick
++INCMAGICK = -I$(srcdir)
++LIBMAGICK = magick/libmagick.la
++else
++DIRMAGICK =
++INCMAGICK =
++LIBMAGICK =
++endif
++
+ DIST_SUBDIRS = xml help wingdingfont patterns glib-wv libole2 oledecod magick expat exporter .
+ 
+-SUBDIRS = xml help wingdingfont patterns $(DIRGLIB) libole2 oledecod magick $(DIREXPAT) $(DIREXPORTER) .
++SUBDIRS = xml help wingdingfont patterns $(DIRGLIB) libole2 oledecod $(DIRMAGICK) $(DIREXPAT) $(DIREXPORTER) .
+ 
+ DEFS = @DEFS@ -DVERSION=\"@VERSION@\" -DXMLCONFIG=\"$(pkgdatadir)/wvConfig.xml\" -DHTMLCONFIG=\"$(pkgdatadir)/wvHtml.xml\"
+ 
+ INCLUDES = -I. -I$(top_builddir) -I$(srcdir) \
+-	-I$(srcdir)/magick -I$(srcdir)/libole2 -I$(srcdir)/oledecod $(INCGLIB) $(INCEXPAT)
++	$(INCMAGICK) -I$(srcdir)/libole2 -I$(srcdir)/oledecod $(INCGLIB) $(INCEXPAT)
+ 
+ CFLAGS = @CFLAGS@ @ANSI_CFLAGS@
+ 
+-CPPFLAGS = @CPPFLAGS@ @WMF_CFLAGS@ @XML_CFLAGS@ @GLIB_CFLAGS@ @ICONV_CFLAGS@ @PNG_CFLAGS@ @ZLIB_CFLAGS@
++CPPFLAGS = @CPPFLAGS@ @WMF_CFLAGS@ @XML_CFLAGS@ @GLIB_CFLAGS@ @ICONV_CFLAGS@ @PNG_CFLAGS@ @ZLIB_CFLAGS@ @MAGICK_CFLAGS@
+ 
+-WVLIBS = @WMF_LIBS@ @XML_LIBS@ @GLIB_LIBS@ @ICONV_LIBS@ @PNG_LIBS@ @ZLIB_LIBS@ @LIBS@ -lm
++WVLIBS = @WMF_LIBS@ @XML_LIBS@ @GLIB_LIBS@ @ICONV_LIBS@ @PNG_LIBS@ @ZLIB_LIBS@ @MAGICK_LIBS@ @LIBS@ -lm
+ 
+ include_HEADERS = wv.h
+ 
+@@ -57,7 +67,7 @@
+ wvConvert_LDADD = libwv.la $(GETOPT)
+ wvVersion_LDADD = libwv.la $(GETOPT)
+ 
+-libwv_la_LIBADD = magick/libmagick.la libole2/libole2.la oledecod/liboledecod.la $(LIBGLIB) $(LIBEXPAT) $(LIBEXPORTER) $(WVLIBS)
++libwv_la_LIBADD = $(LIBMAGICK) libole2/libole2.la oledecod/liboledecod.la $(LIBGLIB) $(LIBEXPAT) $(LIBEXPORTER) $(WVLIBS)
+ libwv_la_LDFLAGS = -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) -release $(LT_RELEASE) -export-dynamic
+ libwv_la_SOURCES = \
+ 	support.c \
+diff -Nur wv-0.7.1.orig/bmptopng.c wv-0.7.1/bmptopng.c
+--- wv-0.7.1.orig/bmptopng.c	Tue Apr 10 18:36:48 2001
++++ wv-0.7.1/bmptopng.c	Thu Feb 21 22:56:31 2002
 @@ -1,4 +1,4 @@
 -#include "magick/magick.h"
 +#include <magick/magick.h>
  #include <string.h>
  #ifdef HAVE_CONFIG_H
  #include "config.h"
-@@ -23,7 +23,7 @@
+@@ -23,15 +23,27 @@
      GetImageInfo (&image_info);
      sprintf (buffer, "%s.bmp", prefix);
      strcpy (image_info.filename, buffer);
--    image = ReadBMPImage (&image_info);
-+    image = ReadImage (&image_info);
++#ifdef HAVE_MAGICK
++    image = ReadImage (&image_info, NULL);
++#else
+     image = ReadBMPImage (&image_info);
++#endif
      if (image == (Image *) NULL)
  	return (1);
      sprintf (buffer, "%s.png", prefix);
-@@ -31,7 +31,7 @@
+ 
      strcpy (image_info.filename, buffer);
++#ifdef HAVE_MAGICK
++    SetImageInfo (&image_info, 1, NULL);
++#else
      SetImageInfo (&image_info, 1);
++#endif
      strcpy (image->filename, buffer);
--    WritePNGImage (&image_info, image);
++#ifdef HAVE_MAGICK
 +    WriteImage (&image_info, image);
++#else
+     WritePNGImage (&image_info, image);
++#endif
  
      DestroyImage (image);
      return (0);
---- wv-0.6.7/configure.in.orig	Sat Sep  1 11:05:44 2001
-+++ wv-0.6.7/configure.in	Sat Sep  1 11:15:31 2001
-@@ -376,9 +376,9 @@
-     AC_CHECK_HEADER(magick/magick.h,
-         AC_CHECK_LIB(Magick, GetImageInfo,[
-             MAGICK_CFLAGS=$m_cppflags
--            MAGICK_LIBS=$m_ldflags
--            MAGICK="BMAGICK"
--            MAGICKOBJS="\$(RMAGICKOBJS)"]))
-+            MAGICK_LIBS="$m_ldflags -lMagick"
-+            MAGICK=" "
-+            MAGICKOBJS=""]))
- fi
+diff -Nur wv-0.7.1.orig/configure.ac wv-0.7.1/configure.ac
+--- wv-0.7.1.orig/configure.ac	Wed Jan 16 11:39:46 2002
++++ wv-0.7.1/configure.ac	Thu Feb 21 23:02:39 2002
+@@ -215,6 +215,52 @@
+ CPPFLAGS=$_cppflags
+ LDFLAGS=$_ldflags
  
- if test -z "$MAGICK"; then
++dnl system Magick support
++dnl ========================================================
++
++_cppflags=$CPPFLAGS
++_ldflags=$LDFLAGS
++
++AC_ARG_WITH(Magick,[  --with-Magick[=DIR]    use Magick library in DIR],[
++	if test "x$withval" = "xyes"; then
++		MAGICK_DIR=""
++	elif test "x$withval" != "xno"; then
++		MAGICK_DIR=$withval
++		CPPFLAGS="$CPPFLAGS -I$withval/include"
++		LDFLAGS="$LDFLAGS -L$withval/lib"
++	fi
++],[	MAGICK_DIR=""
++])
++
++AC_CHECK_HEADER(magick/magick.h,[
++	AC_CHECK_LIB(Magick, ReadImage,[
++		AC_DEFINE(HAVE_MAGICK,1,[define if you have libMagick])
++		HAVE_MAGICK=1
++		if test "x$MAGICK_DIR" != "x"; then
++			MAGICK_CFLAGS="-I$MAGICK_DIR/include"
++			MAGICK_LIBS="-L$MAGICK_DIR/lib -lMagick"
++		else
++			MAGICK_CFLAGS=""
++			MAGICK_LIBS="-lMagick"
++		fi
++	],[	HAVE_MAGICK=0
++		MAGICK_CFLAGS=""
++		MAGICK_LIBS=""
++	])
++],[	HAVE_MAGICK=0
++	MAGICK_CFLAGS=""
++	MAGICK_LIBS=""
++])
++
++AC_SUBST(HAVE_MAGICK)
++AM_CONDITIONAL(BUILD_MAGICK,[ test "$HAVE_MAGICK" = "0" ])
++
++AC_SUBST(MAGICK_CFLAGS)
++AC_SUBST(MAGICK_LIBS)
++
++CPPFLAGS=$_cppflags
++LDFLAGS=$_ldflags
++
+ dnl system XML support
+ dnl ========================================================
+ 
