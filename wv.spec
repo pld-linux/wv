@@ -1,16 +1,17 @@
 Summary:	MSWord Document to HTML converter
 Summary(pl):	Konwerter domumentów MSWord do HTML
 Name:		wv
-Version:	0.5.40
-Release:	3
+Version:	0.6.0
+Release:	2
 License:	GPL
 Group:		Utilities/Text
 Group(fr):	Utilitaires/Texte
 Group(pl):	Narzêdzia/Tekst
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
-Source0:	http://www.csn.ul.ie/~caolan/publink/mswordview/development/%{name}-%{version}.tar.bz2
+Source0:	http://download.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 Patch0:		wv-DESTDIR.patch
-URL:		http://www.csn.ul.ie/~caolan/docs/MSWordView.html
+Patch1:		wv-gv-exec.patch
+URL:		http://www.wvWare.com/
 Obsoletes:	mswordview
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -59,10 +60,12 @@ Pakiet zawiera statyczne biblioteki.
 %prep
 %setup -q -n %{name}
 %patch0 -p1
+%patch1 -p1
+
 # Checking for CVS specific files and removing them.
 if [ -d ./CVS ]; then
 	for i in `find . -type d -name CVS` `find . -type f -name .cvs\*` `find . -type f -name .#\*`; do
-		if [ -e "$i" ]; then rm -r $i; fi
+		if [ -e "$i" ]; then rm -r -f $i; fi
 	done
 fi
 
@@ -76,18 +79,19 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	install
 
-( cd $RPM_BUILD_ROOT%{_bindir}; ln -sf wvConvert wvText; ) 
+for i in `find $RPM_BUILD_ROOT%{_mandir}/ -type f`;
+  do
+   gzip -9nf $i
+  done 
 
-gzip -9nf $RPM_BUILD_ROOT%{_mandir}/man*/* helper-scripts/* \
-	ABIWORD-SUGGESTIONS CHANGELOG CREDITS D_CREDITS D_README KNOWN-BUGS \
-	README README.NEW TESTING TODO.TXT
+gzip -9nf helper-scripts/*
 
 %clean
-rm -fr $RPM_BUILD_ROOT
+# rm -fr $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc helper-scripts *.gz
+%doc helper-scripts
 %attr(755,root,root) %{_bindir}/*
 %{_libdir}/wv
 %{_mandir}/man*/*.gz
