@@ -14,6 +14,7 @@ Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 # Source0-md5:	5e9675a8676cb1c1f6b8ab05af883178
 Patch0:		%{name}-magick.patch
 Patch1:		%{name}-fixes.patch
+Patch2:		%{name}-wrappers.patch
 URL:		http://www.wvWare.com/
 BuildRequires:	ImageMagick-devel >= 1:5.5.2.5
 BuildRequires:	XFree86-devel
@@ -79,6 +80,7 @@ Pakiet zawiera statyczne biblioteki wv.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 rm -f missing acinclude.m4
