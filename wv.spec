@@ -77,7 +77,7 @@ find . -type d -name 'CVS'| xargs rm -rf
 
 %build
 rm -f missing acinclude.m4
-libtoolize --copy --force
+%{__libtoolize}
 aclocal
 %{__autoconf}
 autoheader
