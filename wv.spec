@@ -19,6 +19,7 @@ BuildRequires:	XFree86-devel
 BuildRequires:	libwmf-devel >= 0.1.21b-3
 BuildRequires:	gd-devel
 BuildRequires:	glib-devel
+BuildRequires:	libxml2-devel
 BuildRequires:	iconv
 Requires:	iconv
 Obsoletes:	mswordview
