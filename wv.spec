@@ -78,9 +78,9 @@ find . -type d -name 'CVS'| xargs rm -rf
 %build
 rm -f missing acinclude.m4
 %{__libtoolize}
-aclocal
+%{__aclocal}
 %{__autoconf}
-autoheader
+%{__autoheader}
 %{__automake} -i
 CPPFLAGS="-I/usr/X11R6/include/X11"
 %configure CPPFLAGS="$CPPFLAGS" \
