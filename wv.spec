@@ -20,8 +20,7 @@ BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	expat-devel
-BuildRequires:	glib2-devel
-BuildRequires:	libjpeg-devel
+BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	libpng-devel
 BuildRequires:	libtool
 BuildRequires:	libwmf-devel >= 2:0.2.2
@@ -55,8 +54,9 @@ Summary:	Include files needed to compile
 Summary(pl):	Pliki nag³ówkowe do biblioteki wv
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	libwmf-devel
-Requires:	ImageMagick-devel
+Requires:	ImageMagick-devel >= 1:5.5.2.5
+Requires:	glib2-devel >= 2.0
+Requires:	libwmf-devel >= 2:0.2.2
 
 %description devel
 Contains the header files.
