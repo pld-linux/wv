@@ -1,8 +1,8 @@
 Summary:	MSWord Document to HTML converter
 Summary(pl):	Konwerter domumentów MSWord do HTML
 Name:		wv
-Version:	0.6.5
-Release:	2
+Version:	0.6.7
+Release:	1
 License:	GPL
 Group:		Applications/Text
 Group(de):	Applikationen/Text
@@ -78,7 +78,7 @@ Pakiet zawiera statyczne biblioteki wv.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1 -b .orig
+%patch2 -p1
 
 # Checking for CVS specific files and removing them.
 find . -type d -name 'CVS'| xargs rm -rf
