@@ -1,7 +1,9 @@
 Summary:	MSWord Document to HTML converter
+Summary(es):	MSWord 6/7/8/9 binary file format -> HTML converter
 Summary(pl):	Konwerter domumentów MSWord do HTML
+Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
-Version:	0.6.7
+Version:	0.7.0
 Release:	1
 License:	GPL
 Group:		Applications/Text
@@ -43,13 +45,20 @@ je do dokumentu HTML, który mo¿e byæ przeczytany w przegl±darce WWW.
 wv jest elementem programów, które pomagaj± przekonwertowaæ dokumenty
 Worda do HTML.
 
+%description -l pt_BR
+Conversor de arquivos formato Word (6/7/8/9) para html
+
 %package devel
 Summary:	Include files needed to compile
 Summary(pl):	Pliki nag³ówkowe do biblioteki wv
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name} = %{version}
 
 %description devel
@@ -61,11 +70,15 @@ Pakiet tem zawiera pliki nag³ówkowe wv.
 %package static
 Summary:	Static wv libraries
 Summary(pl):	Biblioteki statyczne wv
+Summary(pt_BR):	Bibliotecas estáticas para desenvolvimento com o wv
 Group:		Libraries
 Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
+Group(pt_BR):	Bibliotecas
+Group(ru):	âÉÂÌÉÏÔÅËÉ
+Group(uk):	â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name}-devel = %{version}
 
 %description static
@@ -84,6 +97,7 @@ Pakiet zawiera statyczne biblioteki wv.
 find . -type d -name 'CVS'| xargs rm -rf
 
 %build
+rm -f missing
 libtoolize --copy --force
 aclocal
 autoconf
