@@ -2,12 +2,12 @@ Summary:	MSWord Document to HTML converter
 Summary(pl):	Konwerter dokumentów MS Worda do HTML
 Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
-Version:	0.7.5
+Version:	0.7.6
 Release:	1
 License:	GPL
 Group:		Applications/Text
 Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
-# Source0-md5:	5c52991ce95b2ee02fbaebff0dc36869
+# Source0-md5:	28c46d6676e0fce6a19e3cb730b04556
 Patch0:		%{name}-magick.patch
 Patch1:		%{name}-fixes.patch
 URL:		http://www.wvWare.com/
@@ -80,14 +80,14 @@ rm -f missing acinclude.m4
 %{__autoheader}
 %{__automake} -i
 %configure \
-	--with-Magick \
 	--with-expat \
 	--with-exporter \
 	--with-glib \
 	--with-libwmf \
 	--with-png \
 	--with-zlib \
-	--enable-static
+	--enable-static \
+	--with-libxml2
 # possible bconds:
 # --with-glib=glib2 to use glib 2.x instead of 1.x
 # --with-gnomevfs to include gnomevfs support (gnome1 only?)
@@ -110,7 +110,7 @@ rm -fr $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGELOG CREDITS D_CREDITS D_README KNOWN-BUGS README TESTING TODO.TXT
+#%doc CHANGELOG CREDITS D_CREDITS D_README KNOWN-BUGS README TESTING TODO.TXT
 %attr(755,root,root) %{_bindir}/wv*
 %attr(755,root,root) %{_libdir}/lib*.so.*.*
 %{_datadir}/wv
