@@ -21,9 +21,7 @@ BuildRequires:	gd-devel
 BuildRequires:	glib-devel
 #BuildRequires:	libwmf-devel >= 0.1.21b-3
 #BuildRequires:	libxml2-devel
-BuildRequires:	iconv
 BuildRequires:	autoconf
-Requires:	iconv
 Obsoletes:	mswordview
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
