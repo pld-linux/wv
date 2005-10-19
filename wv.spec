@@ -17,7 +17,7 @@ BuildRequires:	XFree86-devel
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	glib2-devel >= 2.0
-BuildRequires:	libgsf-devel >= 1.0
+BuildRequires:	libgsf-devel >= 1.13.0
 BuildRequires:	libpng-devel
 BuildRequires:	libtool
 BuildRequires:	libwmf-devel >= 2:0.2.2
