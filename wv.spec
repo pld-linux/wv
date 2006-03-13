@@ -6,25 +6,22 @@ Summary:	MSWord Document to HTML converter
 Summary(pl):	Konwerter dokumentów MS Worda do HTML
 Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
-Version:	1.0.2
+Version:	1.2.1
 Release:	1
 License:	GPL
 Group:		Applications/Text
 Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
-# Source0-md5:	8b638a89a5bbb2f354745fe8d1d01d70
-Patch0:		%{name}-magick.patch
-Patch1:		%{name}-fixes.patch
+# Source0-md5:	d757080af4595839d5d82a1a573c692c
 URL:		http://wvware.sourceforge.net/
-BuildRequires:	ImageMagick-devel >= 1:5.5.2.5
 BuildRequires:	XFree86-devel
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
-BuildRequires:	expat-devel
-BuildRequires:	glib2-devel
-BuildRequires:	libjpeg-devel
+BuildRequires:	glib2-devel >= 2.0
+BuildRequires:	libgsf-devel >= 1.13.0
 BuildRequires:	libpng-devel
 BuildRequires:	libtool
 BuildRequires:	libwmf-devel >= 2:0.2.2
+BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
 Obsoletes:	mswordview
@@ -55,6 +52,11 @@ Summary:	Include files needed to compile
 Summary(pl):	Pliki nag³ówkowe do biblioteki wv
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	glib2-devel >= 2.0
+Requires:	libgsf-devel >= 1.0
+Requires:	libpng-devel
+Requires:	libwmf-devel >= 2:0.2.2
+Requires:	libxml2-devel >= 2.0
 
 %description devel
 Contains the header files.
@@ -77,35 +79,26 @@ Pakiet zawiera statyczne biblioteki wv.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
 
 %build
-rm -f acinclude.m4
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %{__autoheader}
-%{__automake} -i
+%{__automake}
 %configure \
-	--with-exporter \
 	--with-zlib \
 	--with-png \
-	--with-Magick \
-	--with-expat \
-	--with-glib=glib2 \
 	--with-libwmf \
 	--%{!?with_static_libs:dis}%{?with_static_libs:en}able-static
 
-mv -f magick magick-wv
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	mandir=%{_mandir}
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -fr $RPM_BUILD_ROOT
