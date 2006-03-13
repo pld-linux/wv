@@ -13,7 +13,6 @@ Group:		Applications/Text
 Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 # Source0-md5:	d757080af4595839d5d82a1a573c692c
 URL:		http://wvware.sourceforge.net/
-BuildRequires:	XFree86-devel
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	glib2-devel >= 2.0
@@ -24,6 +23,10 @@ BuildRequires:	libwmf-devel >= 2:0.2.2
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
+# these are required for full libwmf
+BuildRequires:	freetype-devel >= 2.0
+BuildRequires:	libjpeg-devel
+BuildRequires:	xorg-lib-libX11-devel
 Obsoletes:	mswordview
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -57,6 +60,10 @@ Requires:	libgsf-devel >= 1.0
 Requires:	libpng-devel
 Requires:	libwmf-devel >= 2:0.2.2
 Requires:	libxml2-devel >= 2.0
+# these are required for full libwmf
+Requires:	freetype-devel >= 2.0
+Requires:	libjpeg-devel
+Requires:	xorg-lib-libX11-devel
 
 %description devel
 Contains the header files.
@@ -110,16 +117,16 @@ rm -fr $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README
 %attr(755,root,root) %{_bindir}/wv*
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) %{_libdir}/libwv-*.so.*.*.*
 %{_datadir}/wv
 %{_mandir}/man*/*
 
 %files devel
 %defattr(644,root,root,755)
-%{_pkgconfigdir}/*
-%{_libdir}/lib*.la
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_includedir}/*
+%attr(755,root,root) %{_libdir}/libwv.so
+%{_libdir}/libwv.la
+%{_includedir}/wv
+%{_pkgconfigdir}/wv-*.pc
 
 %if %{with static_libs}
 %files static
