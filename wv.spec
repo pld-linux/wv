@@ -6,12 +6,12 @@ Summary:	MSWord Document to HTML converter
 Summary(pl):	Konwerter dokumentów MS Worda do HTML
 Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
-Version:	1.2.0
+Version:	1.2.1
 Release:	1
 License:	GPL
 Group:		Applications/Text
 Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
-# Source0-md5:	b6319d5e75611fe2210453b5feb82c0c
+# Source0-md5:	d757080af4595839d5d82a1a573c692c
 URL:		http://wvware.sourceforge.net/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf >= 2.50
