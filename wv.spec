@@ -7,7 +7,7 @@ Summary(pl):	Konwerter dokumentów MS Worda do HTML
 Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
 Version:	1.2.1
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Text
 Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
@@ -15,12 +15,12 @@ Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 URL:		http://wvware.sourceforge.net/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
-BuildRequires:	glib2-devel >= 2.0
-BuildRequires:	libgsf-devel >= 1.13.0
-BuildRequires:	libpng-devel
+BuildRequires:	glib2-devel >= 1:2.12.0
+BuildRequires:	libgsf-devel >= 1.14.1
+BuildRequires:	libpng-devel >= 1.2.12
 BuildRequires:	libtool
-BuildRequires:	libwmf-devel >= 2:0.2.2
-BuildRequires:	libxml2-devel >= 2.0
+BuildRequires:	libwmf-devel >= 2:0.2.8.4
+BuildRequires:	libxml2-devel >= 1:2.6.26
 BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
 # these are required for full libwmf
@@ -55,11 +55,11 @@ Summary:	Include files needed to compile
 Summary(pl):	Pliki nag³ówkowe do biblioteki wv
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 2.0
-Requires:	libgsf-devel >= 1.0
-Requires:	libpng-devel
-Requires:	libwmf-devel >= 2:0.2.2
-Requires:	libxml2-devel >= 2.0
+Requires:	glib2-devel >= 1:2.12.0
+Requires:	libgsf-devel >= 1.14.1
+Requires:	libpng-devel >= 1.2.12
+Requires:	libwmf-devel >= 2:0.2.8.4
+Requires:	libxml2-devel >= 1:2.6.26
 # these are required for full libwmf
 Requires:	freetype-devel >= 2.0
 Requires:	libjpeg-devel
@@ -93,6 +93,7 @@ Pakiet zawiera statyczne biblioteki wv.
 %{__autoconf}
 %{__autoheader}
 %{__automake}
+LDFLAGS="%{rpmldflags} -Wl,--as-needed"
 %configure \
 	--with-zlib \
 	--with-png \
