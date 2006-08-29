@@ -7,15 +7,16 @@ Summary(pl):	Konwerter dokumentów MS Worda do HTML
 Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
 Version:	1.2.1
-Release:	3
+Release:	4
 License:	GPL
 Group:		Applications/Text
 Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 # Source0-md5:	d757080af4595839d5d82a1a573c692c
+Patch0:		%{name}-gsfinput.patch
 URL:		http://wvware.sourceforge.net/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
-BuildRequires:	glib2-devel >= 1:2.12.0
+BuildRequires:	glib2-devel >= 1:2.12.2
 BuildRequires:	libgsf-devel >= 1.14.1
 BuildRequires:	libpng-devel >= 1.2.12
 BuildRequires:	libtool
@@ -55,7 +56,7 @@ Summary:	Include files needed to compile
 Summary(pl):	Pliki nag³ówkowe do biblioteki wv
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.12.0
+Requires:	glib2-devel >= 1:2.12.2
 Requires:	libgsf-devel >= 1.14.1
 Requires:	libpng-devel >= 1.2.12
 Requires:	libwmf-devel >= 2:0.2.8.4
@@ -86,6 +87,7 @@ Pakiet zawiera statyczne biblioteki wv.
 
 %prep
 %setup -q
+%patch0 -p0
 
 %build
 %{__libtoolize}
@@ -93,7 +95,6 @@ Pakiet zawiera statyczne biblioteki wv.
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-LDFLAGS="%{rpmldflags} -Wl,--as-needed"
 %configure \
 	--with-zlib \
 	--with-png \
