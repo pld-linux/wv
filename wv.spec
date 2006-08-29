@@ -7,11 +7,12 @@ Summary(pl):	Konwerter dokumentów MS Worda do HTML
 Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
 Version:	1.2.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Text
 Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 # Source0-md5:	d757080af4595839d5d82a1a573c692c
+Patch0:		%{name}-gsfinput.patch
 URL:		http://wvware.sourceforge.net/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf >= 2.50
@@ -40,6 +41,7 @@ wv is a suite of programs to help convert Word Documents to HTML.
 MSWordView jest programem, który rozumie binarne dokumenty programu
 Microsoft Word 8 (Office97, Office2000) i jest w stanie skonwertowaæ
 je do dokumentu HTML, który mo¿e byæ przeczytany w przegl±darce WWW.
+
 
 wv jest elementem programów, które pomagaj± przekonwertowaæ dokumenty
 Worda do HTML.
@@ -79,6 +81,7 @@ Pakiet zawiera statyczne biblioteki wv.
 
 %prep
 %setup -q
+%patch0 -p0
 
 %build
 %{__libtoolize}
