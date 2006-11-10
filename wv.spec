@@ -6,15 +6,13 @@ Summary:	MSWord Document to HTML converter
 Summary(pl):	Konwerter dokumentów MS Worda do HTML
 Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
-Version:	1.2.1
-Release:	2
+Version:	1.2.4
+Release:	1
 License:	GPL
 Group:		Applications/Text
 Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
-# Source0-md5:	d757080af4595839d5d82a1a573c692c
-Patch0:		%{name}-gsfinput.patch
+# Source0-md5:	c1861c560491f121e12917fa76970ac5
 URL:		http://wvware.sourceforge.net/
-BuildRequires:	XFree86-devel
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	glib2-devel >= 2.0
@@ -25,6 +23,10 @@ BuildRequires:	libwmf-devel >= 2:0.2.2
 BuildRequires:	libxml2-devel >= 2.0
 BuildRequires:	pkgconfig
 BuildRequires:	zlib-devel
+# these are required for full libwmf
+BuildRequires:	XFree86-devel
+BuildRequires:	freetype-devel >= 2.0
+BuildRequires:	libjpeg-devel
 Obsoletes:	mswordview
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -42,7 +44,6 @@ MSWordView jest programem, który rozumie binarne dokumenty programu
 Microsoft Word 8 (Office97, Office2000) i jest w stanie skonwertowaæ
 je do dokumentu HTML, który mo¿e byæ przeczytany w przegl±darce WWW.
 
-
 wv jest elementem programów, które pomagaj± przekonwertowaæ dokumenty
 Worda do HTML.
 
@@ -59,6 +60,10 @@ Requires:	libgsf-devel >= 1.0
 Requires:	libpng-devel
 Requires:	libwmf-devel >= 2:0.2.2
 Requires:	libxml2-devel >= 2.0
+# these are required for full libwmf
+Requires:	XFree86-devel
+Requires:	freetype-devel >= 2.0
+Requires:	libjpeg-devel
 
 %description devel
 Contains the header files.
@@ -81,7 +86,6 @@ Pakiet zawiera statyczne biblioteki wv.
 
 %prep
 %setup -q
-%patch0 -p0
 
 %build
 %{__libtoolize}
@@ -113,16 +117,16 @@ rm -fr $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README
 %attr(755,root,root) %{_bindir}/wv*
-%attr(755,root,root) %{_libdir}/lib*.so.*.*
+%attr(755,root,root) %{_libdir}/libwv-*.so.*.*.*
 %{_datadir}/wv
 %{_mandir}/man*/*
 
 %files devel
 %defattr(644,root,root,755)
-%{_pkgconfigdir}/*
-%{_libdir}/lib*.la
-%attr(755,root,root) %{_libdir}/lib*.so
-%{_includedir}/*
+%attr(755,root,root) %{_libdir}/libwv.so
+%{_libdir}/libwv.la
+%{_includedir}/wv
+%{_pkgconfigdir}/wv-*.pc
 
 %if %{with static_libs}
 %files static
