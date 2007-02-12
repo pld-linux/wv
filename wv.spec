@@ -3,8 +3,8 @@
 %bcond_without	static_libs	# without static version
 #
 Summary:	MSWord Document to HTML converter
-Summary(pl):	Konwerter dokumentÛw MS Worda do HTML
-Summary(pt_BR):	Conversor de arquivos formato Word (6/7/8/9) para html
+Summary(pl.UTF-8):   Konwerter dokument√≥w MS Worda do HTML
+Summary(pt_BR.UTF-8):   Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
 Version:	1.2.4
 Release:	1
@@ -39,20 +39,20 @@ documents into HTML, which can then be read with a browser.
 
 wv is a suite of programs to help convert Word Documents to HTML.
 
-%description -l pl
-MSWordView jest programem, ktÛry rozumie binarne dokumenty programu
-Microsoft Word 8 (Office97, Office2000) i jest w stanie skonwertowaÊ
-je do dokumentu HTML, ktÛry moøe byÊ przeczytany w przegl±darce WWW.
+%description -l pl.UTF-8
+MSWordView jest programem, kt√≥ry rozumie binarne dokumenty programu
+Microsoft Word 8 (Office97, Office2000) i jest w stanie skonwertowaƒá
+je do dokumentu HTML, kt√≥ry mo≈ºe byƒá przeczytany w przeglƒÖdarce WWW.
 
-wv jest elementem programÛw, ktÛre pomagaj± przekonwertowaÊ dokumenty
+wv jest elementem program√≥w, kt√≥re pomagajƒÖ przekonwertowaƒá dokumenty
 Worda do HTML.
 
-%description -l pt_BR
+%description -l pt_BR.UTF-8
 Conversor de arquivos formato Word (6/7/8/9) para html.
 
 %package devel
 Summary:	Include files needed to compile
-Summary(pl):	Pliki nag≥Ûwkowe do biblioteki wv
+Summary(pl.UTF-8):   Pliki nag≈Ç√≥wkowe do biblioteki wv
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.12.2
@@ -68,20 +68,20 @@ Requires:	xorg-lib-libX11-devel
 %description devel
 Contains the header files.
 
-%description devel -l pl
-Pakiet tem zawiera pliki nag≥Ûwkowe wv.
+%description devel -l pl.UTF-8
+Pakiet tem zawiera pliki nag≈Ç√≥wkowe wv.
 
 %package static
 Summary:	Static wv libraries
-Summary(pl):	Biblioteki statyczne wv
-Summary(pt_BR):	Bibliotecas est·ticas para desenvolvimento com o wv
+Summary(pl.UTF-8):   Biblioteki statyczne wv
+Summary(pt_BR.UTF-8):   Bibliotecas est√°ticas para desenvolvimento com o wv
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Contains static wv libraries.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Pakiet zawiera statyczne biblioteki wv.
 
 %prep
