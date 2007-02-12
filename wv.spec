@@ -3,8 +3,8 @@
 %bcond_without	static_libs	# without static version
 #
 Summary:	MSWord Document to HTML converter
-Summary(pl.UTF-8):   Konwerter dokumentów MS Worda do HTML
-Summary(pt_BR.UTF-8):   Conversor de arquivos formato Word (6/7/8/9) para html
+Summary(pl.UTF-8):	Konwerter dokumentów MS Worda do HTML
+Summary(pt_BR.UTF-8):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
 Version:	1.2.4
 Release:	1
@@ -52,7 +52,7 @@ Conversor de arquivos formato Word (6/7/8/9) para html.
 
 %package devel
 Summary:	Include files needed to compile
-Summary(pl.UTF-8):   Pliki nagłówkowe do biblioteki wv
+Summary(pl.UTF-8):	Pliki nagłówkowe do biblioteki wv
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.12.2
@@ -73,8 +73,8 @@ Pakiet tem zawiera pliki nagłówkowe wv.
 
 %package static
 Summary:	Static wv libraries
-Summary(pl.UTF-8):   Biblioteki statyczne wv
-Summary(pt_BR.UTF-8):   Bibliotecas estáticas para desenvolvimento com o wv
+Summary(pl.UTF-8):	Biblioteki statyczne wv
+Summary(pt_BR.UTF-8):	Bibliotecas estáticas para desenvolvimento com o wv
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
