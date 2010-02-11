@@ -1,0 +1,13 @@
+--- wv-1.2.4/wv-1.0.pc.in~	2005-04-18 23:14:48.000000000 +0200
++++ wv-1.2.4/wv-1.0.pc.in	2010-02-07 20:10:33.553971551 +0100
+@@ -1,7 +1,7 @@
+ prefix=@prefix@
+-exec_prefix=${prefix}
+-libdir=${exec_prefix}/lib
+-includedir=${prefix}/include
++exec_prefix=@exec_prefix@
++libdir=@libdir@
++includedir=@includedir@
+ 
+ Name: wvWare
+ Description: Word Document Filter library and utilities
