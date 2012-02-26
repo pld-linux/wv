@@ -1,16 +1,16 @@
 #
 # Conditional build:
 %bcond_without	static_libs	# without static version
-#
+
 Summary:	MSWord Document to HTML converter
 Summary(pl.UTF-8):	Konwerter dokumentów MS Worda do HTML
 Summary(pt_BR.UTF-8):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
 Version:	1.2.4
-Release:	9
+Release:	10
 License:	GPL
 Group:		Applications/Text
-Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
+Source0:	http://downloads.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 # Source0-md5:	c1861c560491f121e12917fa76970ac5
 Patch0:		%{name}-pc.patch
 URL:		http://wvware.sourceforge.net/
@@ -31,7 +31,7 @@ BuildRequires:	xorg-lib-libX11-devel
 Obsoletes:	mswordview
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		specflags_ia32	 -fomit-frame-pointer 
+%define		specflags_ia32	 -fomit-frame-pointer
 
 %description
 MSWordView is a program that understands the Microsoft Word 8 binary
@@ -118,10 +118,39 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README
-%attr(755,root,root) %{_bindir}/wv*
+%attr(755,root,root) %{_bindir}/wvAbw
+%attr(755,root,root) %{_bindir}/wvCleanLatex
+%attr(755,root,root) %{_bindir}/wvConvert
+%attr(755,root,root) %{_bindir}/wvDVI
+%attr(755,root,root) %{_bindir}/wvDocBook
+%attr(755,root,root) %{_bindir}/wvHtml
+%attr(755,root,root) %{_bindir}/wvLatex
+%attr(755,root,root) %{_bindir}/wvMime
+%attr(755,root,root) %{_bindir}/wvPDF
+%attr(755,root,root) %{_bindir}/wvPS
+%attr(755,root,root) %{_bindir}/wvRTF
+%attr(755,root,root) %{_bindir}/wvSummary
+%attr(755,root,root) %{_bindir}/wvText
+%attr(755,root,root) %{_bindir}/wvVersion
+%attr(755,root,root) %{_bindir}/wvWare
+%attr(755,root,root) %{_bindir}/wvWml
 %attr(755,root,root) %{_libdir}/libwv-*.so.*.*.*
+%ghost %{_libdir}/libwv-*.so.3
 %{_datadir}/wv
-%{_mandir}/man*/*
+%{_mandir}/man1/wvAbw.1*
+%{_mandir}/man1/wvCleanLatex.1*
+%{_mandir}/man1/wvDVI.1*
+%{_mandir}/man1/wvHtml.1*
+%{_mandir}/man1/wvLatex.1*
+%{_mandir}/man1/wvMime.1*
+%{_mandir}/man1/wvPDF.1*
+%{_mandir}/man1/wvPS.1*
+%{_mandir}/man1/wvRTF.1*
+%{_mandir}/man1/wvSummary.1*
+%{_mandir}/man1/wvText.1*
+%{_mandir}/man1/wvVersion.1*
+%{_mandir}/man1/wvWare.1*
+%{_mandir}/man1/wvWml.1*
 
 %files devel
 %defattr(644,root,root,755)
