@@ -6,14 +6,13 @@ Summary:	MSWord Document to HTML converter
 Summary(pl.UTF-8):	Konwerter dokumentów MS Worda do HTML
 Summary(pt_BR.UTF-8):	Conversor de arquivos formato Word (6/7/8/9) para html
 Name:		wv
-Version:	1.2.4
-Release:	15
-License:	GPL
+Version:	1.2.9
+Release:	1
+License:	GPL v2+
 Group:		Applications/Text
-Source0:	http://downloads.sourceforge.net/wvware/%{name}-%{version}.tar.gz
-# Source0-md5:	c1861c560491f121e12917fa76970ac5
-Patch0:		%{name}-pc.patch
-Patch1:		%{name}-format.patch
+Source0:	http://www.abisource.com/downloads/wv/%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	dbccf2e9f747e50c913b7e3d126b73f7
+Patch0:		%{name}-format.patch
 URL:		http://wvware.sourceforge.net/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -89,7 +88,6 @@ Pakiet zawiera statyczne biblioteki wv.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__libtoolize}
@@ -98,10 +96,10 @@ Pakiet zawiera statyczne biblioteki wv.
 %{__autoheader}
 %{__automake}
 %configure \
+	%{!?with_static_libs:--disable-static} \
 	--with-zlib \
 	--with-png \
-	--with-libwmf \
-	--%{!?with_static_libs:dis}%{?with_static_libs:en}able-static
+	--with-libwmf
 
 %{__make}
 
@@ -110,6 +108,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+# obsoleted by pkg-config
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libwv.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -136,8 +137,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/wvVersion
 %attr(755,root,root) %{_bindir}/wvWare
 %attr(755,root,root) %{_bindir}/wvWml
-%attr(755,root,root) %{_libdir}/libwv-*.so.*.*.*
-%ghost %{_libdir}/libwv-*.so.3
+%attr(755,root,root) %{_libdir}/libwv-1.2.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libwv-1.2.so.4
 %{_datadir}/wv
 %{_mandir}/man1/wvAbw.1*
 %{_mandir}/man1/wvCleanLatex.1*
@@ -157,9 +158,8 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libwv.so
-%{_libdir}/libwv.la
 %{_includedir}/wv
-%{_pkgconfigdir}/wv-*.pc
+%{_pkgconfigdir}/wv-1.0.pc
 
 %if %{with static_libs}
 %files static
